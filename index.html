@@ -108,6 +108,20 @@
             <span>from €99</span>
           </article>
         </div>
+        <div class="detail-pricing-panel reveal" aria-label="Car detailing package pricing">
+          <div class="detail-pricing-card">
+            <h3>Car detailing packages</h3>
+            <p>Choose your package and car size. Small city cars like Fiat 500, Smart or MINI are best classified as <strong>City car</strong>. Mid-size sedans such as Audi A4, BMW 3 Series or Mercedes C-Class are typical <strong>Berlina</strong>. SUV and XL/Van pricing applies to larger vehicles.</p>
+            <ul class="pricing-list">
+              <li><strong>Express wash</strong> — from €59<br />city car €59 · berlina €69 · SUV €79 · XL/Van €99</li>
+              <li><strong>Interior reset</strong> — from €79<br />city car €79 · berlina €69 · SUV €79 · XL/Van €99</li>
+              <li><strong>Full detail</strong> — from €139<br />city car €139 · berlina €159 · SUV €189 · XL/Van €229</li>
+              <li><strong>Deep clean</strong> — from €249<br />city car €249 · berlina €279 · SUV €329 · XL/Van €399</li>
+              <li><strong>Showroom / VIP</strong><br />city car €499 · berlina €599 · XL/Van €699+</li>
+            </ul>
+            <p>Prices may change based on car condition, stain level, or extra service requests. Other services may be added later if requested.</p>
+          </div>
+        </div>
       </section>
 
       <section class="trust-strip reveal" aria-label="GoClean Lux service guarantees">
@@ -171,13 +185,88 @@
           <div class="booking-form reveal">
             <form id="bookingForm">
               <div class="form-row form-row-wide">
-                <label for="serviceSelect">Service</label>
-                <select id="serviceSelect" required>
+                <label for="serviceSelect">Choose service</label>
+                <div class="booking-service-grid" id="bookingServiceOptions">
+                  <button type="button" class="booking-service-option selected" data-service="Car Cleaning">
+                    <span class="service-dot car"></span>
+                    <span><strong>Car Cleaning</strong><small>Mobile detailing packages</small></span>
+                    <em>from €59</em>
+                  </button>
+                  <button type="button" class="booking-service-option" data-service="Home & Office">
+                    <span class="service-dot home"></span>
+                    <span><strong>Home & Office</strong><small>Deep cleaning for interiors</small></span>
+                    <em>from €119</em>
+                  </button>
+                  <button type="button" class="booking-service-option" data-service="Sofa & Upholstery">
+                    <span class="service-dot sofa"></span>
+                    <span><strong>Sofa & Upholstery</strong><small>Steam and fabric refresh</small></span>
+                    <em>from €59</em>
+                  </button>
+                  <button type="button" class="booking-service-option" data-service="Garden & Outdoor">
+                    <span class="service-dot garden"></span>
+                    <span><strong>Garden & Outdoor</strong><small>Terraces and exterior care</small></span>
+                    <em>from €99</em>
+                  </button>
+                </div>
+                <select id="serviceSelect" class="sr-only" required aria-label="Selected service">
                   <option value="Car Cleaning">Car Cleaning</option>
                   <option value="Home & Office">Home & Office</option>
                   <option value="Sofa & Upholstery">Sofa & Upholstery</option>
                   <option value="Garden & Outdoor">Garden & Outdoor</option>
                 </select>
+              </div>
+              <div class="form-row form-row-wide car-details-row" id="serviceTypeRow" style="display:none;">
+                <label>Choose car package</label>
+                <div class="option-grid" id="packageOptions">
+                  <button type="button" class="option-button package-option" data-package="Express wash">
+                    <strong>Express wash</strong>
+                    <span>Fast exterior refresh</span>
+                    <em>from €59</em>
+                  </button>
+                  <button type="button" class="option-button package-option" data-package="Interior reset">
+                    <strong>Interior reset</strong>
+                    <span>Seats, plastics, carpets</span>
+                    <em>from €79</em>
+                  </button>
+                  <button type="button" class="option-button package-option selected" data-package="Full detail">
+                    <strong>Full detail</strong>
+                    <span>Inside and outside finish</span>
+                    <em>from €139</em>
+                    <small class="mini-pill">Popular</small>
+                  </button>
+                  <button type="button" class="option-button package-option" data-package="Deep clean">
+                    <strong>Deep clean</strong>
+                    <span>Heavy dirt and stains</span>
+                    <em>from €249</em>
+                  </button>
+                  <button type="button" class="option-button package-option" data-package="Showroom / VIP">
+                    <strong>Showroom / VIP</strong>
+                    <span>Premium correction finish</span>
+                    <em>from €499</em>
+                  </button>
+                </div>
+              </div>
+              <div class="form-row form-row-wide car-details-row" id="carSizeRow" style="display:none;">
+                <label>Vehicle size</label>
+                <div class="option-grid" id="carSizeOptions">
+                  <button type="button" class="option-button car-size-option selected" data-size="cityCar">
+                    <strong>City car</strong>
+                    <span>Fiat 500, Smart, MINI</span>
+                  </button>
+                  <button type="button" class="option-button car-size-option" data-size="berlina">
+                    <strong>Berlina</strong>
+                    <span>Audi A4, BMW 3 Series</span>
+                  </button>
+                  <button type="button" class="option-button car-size-option" data-size="suv">
+                    <strong>SUV</strong>
+                    <span>Qashqai, X5, GLC</span>
+                  </button>
+                  <button type="button" class="option-button car-size-option" data-size="xl">
+                    <strong>XL / Van</strong>
+                    <span>V-Class, Transporter</span>
+                  </button>
+                </div>
+                <p class="form-note small-note">Choose the size that best fits your vehicle. Final price may vary based on condition and extra service needs.</p>
               </div>
               <div class="form-row">
                 <label for="dateSelect">Preferred date</label>
@@ -220,9 +309,11 @@
             <div class="summary-card">
               <h3>Booking summary</h3>
               <div class="summary-row"><span>Service</span><strong id="summaryService">Car Cleaning</strong></div>
+              <div class="summary-row"><span>Package</span><strong id="summaryPackage">Full detail</strong></div>
+              <div class="summary-row"><span>Vehicle</span><strong id="summaryVehicle">City car</strong></div>
               <div class="summary-row"><span>Date</span><strong id="summaryDate">Select a date</strong></div>
               <div class="summary-row"><span>Time</span><strong id="summaryTime">Pick a slot</strong></div>
-              <div class="summary-row"><span>Estimate</span><strong id="summaryPrice">from €79</strong></div>
+              <div class="summary-row"><span>Estimate</span><strong id="summaryPrice">from €59</strong></div>
               <div class="summary-row"><span>Duration</span><strong>3 hours</strong></div>
               <p class="summary-copy">All bookings are offered within a 9:00–19:00 window. Choose your preferred 3-hour arrival slot.</p>
               <div class="booking-assurance">

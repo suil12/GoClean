@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const menuToggle = document.querySelector('.menu-toggle');
   const navLinks = document.querySelector('.nav-links');
   const serviceCards = document.querySelectorAll('.service-card');
+  const bookingServiceOptions = document.querySelectorAll('.booking-service-option');
   const counters = document.querySelectorAll('[data-count]');
   const serviceSelect = document.getElementById('serviceSelect');
   const dateSelect = document.getElementById('dateSelect');
@@ -18,15 +19,58 @@ document.addEventListener('DOMContentLoaded', function () {
   const modalCopy = document.getElementById('modalCopy');
   const modalSummary = document.getElementById('modalSummary');
   const summaryService = document.getElementById('summaryService');
+  const summaryPackage = document.getElementById('summaryPackage');
+  const summaryVehicle = document.getElementById('summaryVehicle');
   const summaryDate = document.getElementById('summaryDate');
   const summaryTime = document.getElementById('summaryTime');
   const summaryPrice = document.getElementById('summaryPrice');
+  const packageOptions = document.querySelectorAll('.package-option');
+  const carSizeOptions = document.querySelectorAll('.car-size-option');
+  const serviceTypeRow = document.getElementById('serviceTypeRow');
+  const carSizeRow = document.getElementById('carSizeRow');
   const calendarToggle = document.getElementById('calendarToggle');
+
+  let selectedPackage = 'Full detail';
+  let selectedCarSize = 'cityCar';
+  let availableSlots = [];
 
   yearEl.textContent = new Date().getFullYear();
 
+  const carPackagePrices = {
+    'Express wash': {
+      cityCar: { amount: 59, label: 'from €59' },
+      berlina: { amount: 69, label: 'from €69' },
+      suv: { amount: 79, label: 'from €79' },
+      xl: { amount: 99, label: 'from €99' },
+    },
+    'Interior reset': {
+      cityCar: { amount: 79, label: 'from €79' },
+      berlina: { amount: 69, label: 'from €69' },
+      suv: { amount: 79, label: 'from €79' },
+      xl: { amount: 99, label: 'from €99' },
+    },
+    'Full detail': {
+      cityCar: { amount: 139, label: 'from €139' },
+      berlina: { amount: 159, label: 'from €159' },
+      suv: { amount: 189, label: 'from €189' },
+      xl: { amount: 229, label: 'from €229' },
+    },
+    'Deep clean': {
+      cityCar: { amount: 249, label: 'from €249' },
+      berlina: { amount: 279, label: 'from €279' },
+      suv: { amount: 329, label: 'from €329' },
+      xl: { amount: 399, label: 'from €399' },
+    },
+    'Showroom / VIP': {
+      cityCar: { amount: 499, label: 'from €499' },
+      berlina: { amount: 599, label: 'from €599' },
+      suv: { amount: 699, label: 'from €699+' },
+      xl: { amount: 699, label: 'from €699+' },
+    },
+  };
+
   const serviceDetails = {
-    'Car Cleaning': { price: 'from €79' },
+    'Car Cleaning': { price: 'from €59' },
     'Home & Office': { price: 'from €119' },
     'Sofa & Upholstery': { price: 'from €59' },
     'Garden & Outdoor': { price: 'from €99' },
@@ -133,9 +177,40 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  async function loadAvailableSlots(date) {
+    if (!date) {
+      availableSlots = [...timeSlots];
+      renderSlots();
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/slots?date=${encodeURIComponent(date)}`);
+      const data = await response.json();
+      if (response.ok && Array.isArray(data.slots)) {
+        availableSlots = data.slots;
+      } else {
+        availableSlots = [...timeSlots];
+      }
+    } catch (error) {
+      availableSlots = [...timeSlots];
+    }
+
+    if (!availableSlots.includes(selectedSlot)) {
+      selectedSlot = null;
+    }
+
+    renderSlots();
+  }
+
   function renderSlots() {
     slotContainer.innerHTML = '';
-    timeSlots.forEach((slot) => {
+    if (availableSlots.length === 0) {
+      slotContainer.innerHTML = '<p class="slot-empty">No slots available for this date. Please choose another day.</p>';
+      return;
+    }
+
+    availableSlots.forEach((slot) => {
       const slotButton = document.createElement('button');
       slotButton.type = 'button';
       slotButton.className = 'slot-chip';
@@ -160,19 +235,59 @@ document.addEventListener('DOMContentLoaded', function () {
     serviceCards.forEach((card) => {
       card.classList.toggle('active', card.dataset.service === serviceSelect.value);
     });
+    bookingServiceOptions.forEach((button) => {
+      button.classList.toggle('selected', button.dataset.service === serviceSelect.value);
+    });
+  }
+
+  function formatVehicleLabel(value) {
+    return {
+      cityCar: 'City car',
+      berlina: 'Berlina',
+      suv: 'SUV',
+      xl: 'XL / Van',
+    }[value] || 'Vehicle';
+  }
+
+  function getEstimate() {
+    if (serviceSelect.value !== 'Car Cleaning') {
+      return { amount: null, text: serviceDetails[serviceSelect.value]?.price || 'Estimate on request' };
+    }
+
+    const packageInfo = carPackagePrices[selectedPackage];
+    const sizeInfo = packageInfo ? packageInfo[selectedCarSize] : null;
+
+    if (!sizeInfo) {
+      return { amount: null, text: 'Estimate on request' };
+    }
+
+    return { amount: sizeInfo.amount, text: sizeInfo.label };
+  }
+
+  function updateBookingFieldsVisibility() {
+    const carDetailsVisible = serviceSelect.value === 'Car Cleaning';
+    serviceTypeRow.style.display = carDetailsVisible ? '' : 'none';
+    carSizeRow.style.display = carDetailsVisible ? '' : 'none';
   }
 
   function updateSummary() {
+    const estimate = getEstimate();
+
     summaryService.textContent = serviceSelect.value;
+    summaryPackage.textContent = serviceSelect.value === 'Car Cleaning' ? selectedPackage : 'N/A';
+    summaryVehicle.textContent = serviceSelect.value === 'Car Cleaning' ? formatVehicleLabel(selectedCarSize) : 'N/A';
     summaryDate.textContent = dateSelect.value ? dateSelect.value : 'Select a date';
     summaryTime.textContent = selectedSlot ? selectedSlot : 'Pick a slot';
-    summaryPrice.textContent = serviceDetails[serviceSelect.value].price;
+    summaryPrice.textContent = estimate.text;
     syncServiceCards();
   }
 
   function chooseService(card) {
     serviceSelect.value = card.dataset.service;
+    updateBookingFieldsVisibility();
+    selectedSlot = null;
     updateSummary();
+    loadAvailableSlots(dateSelect.value);
     document.getElementById('contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -189,11 +304,43 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  serviceSelect.addEventListener('change', updateSummary);
+  bookingServiceOptions.forEach((button) => {
+    button.addEventListener('click', () => {
+      serviceSelect.value = button.dataset.service;
+      updateBookingFieldsVisibility();
+      selectedSlot = null;
+      updateSummary();
+      loadAvailableSlots(dateSelect.value);
+    });
+  });
+
+  serviceSelect.addEventListener('change', () => {
+    updateBookingFieldsVisibility();
+    selectedSlot = null;
+    updateSummary();
+    loadAvailableSlots(dateSelect.value);
+  });
+
+  packageOptions.forEach((button) => {
+    button.addEventListener('click', () => {
+      selectedPackage = button.dataset.package;
+      packageOptions.forEach((option) => option.classList.toggle('selected', option === button));
+      updateSummary();
+    });
+  });
+
+  carSizeOptions.forEach((button) => {
+    button.addEventListener('click', () => {
+      selectedCarSize = button.dataset.size;
+      carSizeOptions.forEach((option) => option.classList.toggle('selected', option === button));
+      updateSummary();
+    });
+  });
+
   dateSelect.addEventListener('change', () => {
     selectedSlot = null;
     updateSummary();
-    renderSlots();
+    loadAvailableSlots(dateSelect.value);
   });
 
   if (calendarToggle) {
@@ -218,6 +365,8 @@ document.addEventListener('DOMContentLoaded', function () {
       : 'Your request has been received. Email delivery still needs SMTP settings before live bookings can arrive in your mailbox.';
     modalSummary.innerHTML = `
       <div><span>Service</span><strong>${booking.service}</strong></div>
+      <div><span>Package</span><strong>${booking.serviceType || 'N/A'}</strong></div>
+      <div><span>Vehicle</span><strong>${booking.carSize || 'N/A'}</strong></div>
       <div><span>Date</span><strong>${booking.date}</strong></div>
       <div><span>Time</span><strong>${booking.time}</strong></div>
       <div><span>Estimate</span><strong>${booking.estimate}</strong></div>
@@ -258,11 +407,15 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
+    const estimate = getEstimate();
+
     const booking = {
       service: serviceSelect.value,
+      serviceType: serviceSelect.value === 'Car Cleaning' ? selectedPackage : '',
+      carSize: serviceSelect.value === 'Car Cleaning' ? formatVehicleLabel(selectedCarSize) : '',
       date: dateSelect.value,
       time: selectedSlot,
-      estimate: serviceDetails[serviceSelect.value].price,
+      estimate: estimate.text,
       name,
       phone,
       email,
@@ -306,7 +459,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  updateBookingFieldsVisibility();
   setTodayMinimum();
-  renderSlots();
+  loadAvailableSlots(dateSelect.value);
   updateSummary();
 });

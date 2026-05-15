@@ -9,11 +9,6 @@
   },
   "author": "GoClean Lux",
   "license": "MIT",
-  "dependencies": {
-    "dotenv": "^17.4.2",
-    "express": "^4.18.4",
-    "nodemailer": "^8.0.7"
-  },
   "devDependencies": {
     "nodemon": "^3.0.1"
   }
