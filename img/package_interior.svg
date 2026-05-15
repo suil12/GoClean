@@ -1,0 +1,32 @@
+<svg width="640" height="420" viewBox="0 0 640 420" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Interior reset steam and extraction cleaning</title>
+  <desc id="desc">Car seats being cleaned with steam and an upholstery extractor to show interior reset service.</desc>
+  <defs>
+    <linearGradient id="bg" x1="42" x2="606" y1="38" y2="382" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F9FEFF"/>
+      <stop offset="1" stop-color="#EAF4FB"/>
+    </linearGradient>
+    <linearGradient id="seat" x1="156" x2="448" y1="92" y2="328" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#215D9C"/>
+      <stop offset="1" stop-color="#102235"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="420" rx="34" fill="url(#bg)"/>
+  <circle cx="116" cy="94" r="72" fill="#21B7AA" opacity=".2"/>
+  <circle cx="522" cy="332" r="88" fill="#B7E364" opacity=".28"/>
+  <path d="M184 90h232c38 0 69 31 69 69v176H115V159c0-38 31-69 69-69Z" fill="url(#seat)"/>
+  <path d="M180 164c0-26 21-47 47-47h85v216H180V164ZM356 117h70c26 0 47 21 47 47v169H356V117Z" fill="#E9FCFC"/>
+  <path d="M230 146h40v165h-40V146ZM394 146h40v165h-40V146Z" fill="#21B7AA"/>
+  <path d="M106 333h408" stroke="#102235" stroke-width="20" stroke-linecap="round"/>
+  <path d="M492 104c35 21 55 53 60 96M520 132c17 14 27 35 30 62" stroke="#21B7AA" stroke-width="12" stroke-linecap="round"/>
+  <path d="M82 252h86" stroke="#21B7AA" stroke-width="14" stroke-linecap="round"/>
+  <path d="M84 282h74" stroke="#21B7AA" stroke-width="14" stroke-linecap="round"/>
+  <path d="M520 252l-74 42" stroke="#102235" stroke-width="12" stroke-linecap="round"/>
+  <path d="M508 234h58c16 0 29 13 29 29v23h-116v-23c0-16 13-29 29-29Z" fill="#21B7AA"/>
+  <rect x="498" y="264" width="76" height="30" rx="15" fill="#102235"/>
+  <path d="M450 290c-33 10-66 11-99 2" stroke="#B7E364" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="138" cy="128" r="14" fill="#fff"/>
+  <circle cx="112" cy="166" r="9" fill="#fff"/>
+  <circle cx="158" cy="188" r="11" fill="#fff"/>
+  <text x="84" y="366" fill="#087D78" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="900">STEAM + EXTRACTOR INTERIOR</text>
+</svg>

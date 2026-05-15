@@ -24,5 +24,18 @@
     "email": "souhail_12@icloud.com",
     "address": "via piovale 63",
     "notes": ""
+  },
+  {
+    "service": "Car Cleaning",
+    "serviceType": "Full detail",
+    "carSize": "City car",
+    "date": "2025-01-01",
+    "time": "09:00 - 12:00",
+    "estimate": "€139",
+    "name": "Test",
+    "phone": "1234",
+    "email": "test@example.com",
+    "address": "Addr",
+    "notes": "Test"
   }
 ]

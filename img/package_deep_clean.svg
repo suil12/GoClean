@@ -1,0 +1,32 @@
+<svg width="640" height="420" viewBox="0 0 640 420" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Deep clean with polishing and stain removal</title>
+  <desc id="desc">A car being deep cleaned with polishing, carpet shampooing and stain removal details.</desc>
+  <defs>
+    <linearGradient id="bg" x1="44" x2="590" y1="28" y2="386" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FAFFFB"/>
+      <stop offset="1" stop-color="#EAF7EC"/>
+    </linearGradient>
+    <linearGradient id="green" x1="120" x2="520" y1="126" y2="292" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3D8F5F"/>
+      <stop offset="1" stop-color="#087D78"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="420" rx="34" fill="url(#bg)"/>
+  <circle cx="110" cy="102" r="72" fill="#21B7AA" opacity=".18"/>
+  <path d="M118 266c19-82 82-130 170-130h74c91 0 150 48 169 130H118Z" fill="#102235"/>
+  <path d="M178 154h210c36 0 68 24 86 67H146c9-43 20-67 32-67Z" fill="url(#green)"/>
+  <path d="M224 174h130c28 0 52 16 68 43H186c8-28 20-43 38-43Z" fill="#F4FFFF"/>
+  <circle cx="212" cy="274" r="42" fill="#102235"/>
+  <circle cx="212" cy="274" r="21" fill="#E9FCFC"/>
+  <circle cx="452" cy="274" r="42" fill="#102235"/>
+  <circle cx="452" cy="274" r="21" fill="#E9FCFC"/>
+  <circle cx="500" cy="114" r="42" fill="#FFFFFF" stroke="#21B7AA" stroke-width="12"/>
+  <circle cx="500" cy="114" r="16" fill="#B7E364"/>
+  <path d="M468 146l-58 64" stroke="#102235" stroke-width="13" stroke-linecap="round"/>
+  <path d="M406 215c-28 24-66 39-114 45" stroke="#FFD36A" stroke-width="12" stroke-linecap="round"/>
+  <path d="M88 93h120M76 124h86M102 155h54" stroke="#21B7AA" stroke-width="14" stroke-linecap="round"/>
+  <path d="M120 312c24-14 54-14 86 0 31 14 61 14 88 0" stroke="#215D9C" stroke-width="10" stroke-linecap="round"/>
+  <path d="M350 320h116" stroke="#B7E364" stroke-width="14" stroke-linecap="round"/>
+  <path d="M492 84l14 28 31 8-28 15-8 31-17-27-31 3 20-24-12-30 31 12Z" fill="#FFD36A"/>
+  <text x="80" y="366" fill="#087D78" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="900">DEEP CLEAN + POLISHING</text>
+</svg>

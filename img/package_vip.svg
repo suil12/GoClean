@@ -1,0 +1,35 @@
+<svg width="640" height="420" viewBox="0 0 640 420" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">VIP showroom detail with ceramic coating</title>
+  <desc id="desc">A showroom-ready car with ceramic coating shield, polishing stars and premium finish effects.</desc>
+  <defs>
+    <linearGradient id="bg" x1="40" x2="594" y1="30" y2="390" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FFF7E3"/>
+    </linearGradient>
+    <linearGradient id="vip" x1="110" x2="532" y1="124" y2="296" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#102235"/>
+      <stop offset=".62" stop-color="#215D9C"/>
+      <stop offset="1" stop-color="#21B7AA"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="460" x2="574" y1="62" y2="202" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD36A"/>
+      <stop offset="1" stop-color="#B7E364"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="420" rx="34" fill="url(#bg)"/>
+  <circle cx="510" cy="108" r="92" fill="#FFD36A" opacity=".38"/>
+  <path d="M110 266c19-82 82-130 170-130h86c90 0 150 48 169 130H110Z" fill="url(#vip)"/>
+  <path d="M181 154h210c36 0 70 24 88 68H146c9-44 22-68 35-68Z" fill="#21B7AA"/>
+  <path d="M226 174h134c29 0 54 17 70 44H184c8-28 21-44 42-44Z" fill="#FFF7E3"/>
+  <circle cx="210" cy="274" r="42" fill="#102235"/>
+  <circle cx="210" cy="274" r="21" fill="#E9FCFC"/>
+  <circle cx="456" cy="274" r="42" fill="#102235"/>
+  <circle cx="456" cy="274" r="21" fill="#E9FCFC"/>
+  <path d="M506 62l67 25v62c0 43-27 78-67 94-40-16-67-51-67-94V87l67-25Z" fill="url(#shield)" stroke="#FFFFFF" stroke-width="10"/>
+  <path d="M476 142l23 24 42-58" stroke="#102235" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M98 96l21 42 46 11-42 22-12 46-25-40-48 3 31-36-18-45 47 17Z" fill="#21B7AA"/>
+  <path d="M402 74l14 28 31 8-28 15-9 31-16-27-32 3 21-24-12-30 31 12Z" fill="#FFD36A"/>
+  <path d="M92 322h460" stroke="#102235" stroke-width="16" stroke-linecap="round" opacity=".12"/>
+  <path d="M270 108h110M288 84h58M420 306h90" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" opacity=".92"/>
+  <text x="78" y="366" fill="#102235" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="900">VIP SHOWROOM + CERAMIC COATING</text>
+</svg>

@@ -18,7 +18,7 @@
         <img class="brand-logo" src="img/logo_transp.png" alt="GoClean Lux logo" />
         <div>
           <p class="eyebrow">GoClean Lux</p>
-          <p class="subtext">Mobile Cleaning & Detailing</p>
+          <p class="subtext" data-i18n="brandSubtext">Mobile Cleaning & Detailing</p>
         </div>
       </div>
       <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
@@ -26,151 +26,195 @@
         <span></span>
       </button>
       <nav class="nav-links">
-        <a href="#services">Services</a>
-        <a href="#how">How it Works</a>
-        <a href="#testimonials">Reviews</a>
-        <a href="#contact" class="button-outline">Book Now</a>
+        <a href="#services" data-i18n="navServices">Services</a>
+        <a href="#how" data-i18n="navHow">How it Works</a>
+        <a href="#testimonials" data-i18n="navReviews">Reviews</a>
+        <div class="language-toggle" aria-label="Language">
+          <button type="button" class="lang-button active" data-lang="en">EN</button>
+          <button type="button" class="lang-button" data-lang="fr">FR</button>
+        </div>
+        <a href="#contact" class="button-outline" data-i18n="navBook">Book Now</a>
       </nav>
     </header>
 
     <main>
       <section class="hero" id="home">
         <div class="hero-copy">
-          <p class="eyebrow accent">Premium Cleaning. Anytime. Anywhere.</p>
-          <h1>Car detailing with home cleaning power.</h1>
-          <p>GoClean Lux brings a polished finish to cars, sofas, homes, gardens and offices with mobile cleaning services tailored for Luxembourg.</p>
+          <p class="eyebrow accent" data-i18n="heroEyebrow">Premium Cleaning. Anytime. Anywhere.</p>
+          <h1 data-i18n="heroTitle">Car detailing with home cleaning power.</h1>
+          <p data-i18n="heroText">GoClean Lux brings a polished finish to cars, sofas, homes, gardens and offices with mobile cleaning services tailored for Luxembourg.</p>
           <div class="hero-actions">
-            <a href="#contact" class="button-primary">Get a free quote</a>
-            <a href="#services" class="button-secondary">View services</a>
+            <a href="#contact" class="button-primary" data-i18n="heroQuote">Get a free quote</a>
+            <a href="#services" class="button-secondary" data-i18n="heroServices">View services</a>
           </div>
           <div class="hero-highlights">
-            <div><strong data-count="50">0</strong> satisfied clients</div>
-            <div><strong data-count="24">0</strong>h fast booking</div>
-            <div><strong>Eco</strong> premium products</div>
+            <div><strong data-count="50">0</strong> <span data-i18n="heroClients">satisfied clients</span></div>
+            <div><strong data-count="24">0</strong>h <span data-i18n="heroFast">fast booking</span></div>
+            <div><strong>Eco</strong> <span data-i18n="heroEco">premium products</span></div>
           </div>
         </div>
 
-        <div class="best-seller-panel" aria-label="GoClean Lux best seller">
-          <div class="best-seller-head">
-            <span class="badge">Best Seller</span>
-            <img class="hero-card-logo" src="img/logo_transp.png" alt="GoClean Lux logo" />
-          </div>
-          <div class="best-seller-main">
-            <p class="eyebrow">Most booked package</p>
-            <h2>Full interior detail</h2>
-            <p>A complete refresh for seats, carpets, dashboard, trims, glass and odor-sensitive surfaces.</p>
-          </div>
-          <div class="package-meter" aria-hidden="true">
-            <span></span>
-          </div>
-          <div class="package-checklist">
-            <div><strong>01</strong><span>Vacuum and dust extraction</span></div>
-            <div><strong>02</strong><span>Steam clean fabric and plastics</span></div>
-            <div><strong>03</strong><span>Glass, dashboard and finishing shine</span></div>
-          </div>
-          <div class="best-seller-footer">
-            <div>
-              <span>Starting at</span>
-              <strong>€79</strong>
+        <div class="hero-visual">
+          <div class="best-seller-panel" aria-label="GoClean Lux best seller">
+            <div class="best-seller-head">
+              <span class="badge" data-i18n="bestBadge">Best Seller</span>
+              <img class="hero-card-logo" src="img/logo_transp.png" alt="GoClean Lux logo" />
             </div>
-            <a href="#contact" class="button-primary">Book this package</a>
+            <div class="best-seller-media">
+              <img class="hero-image" src="img/package_full_detail.svg" alt="Full detail best seller package" />
+            </div>
+            <div class="best-seller-main">
+              <p class="eyebrow" data-i18n="bestEyebrow">Most booked package</p>
+              <h2 data-i18n="bestTitle">Full interior detail</h2>
+              <p data-i18n="bestText">A complete refresh for seats, carpets, dashboard, trims, glass and odor-sensitive surfaces.</p>
+            </div>
+            <div class="package-meter" aria-hidden="true">
+              <span></span>
+            </div>
+            <div class="package-checklist">
+              <div><strong>01</strong><span data-i18n="bestStep1">Vacuum and dust extraction</span></div>
+              <div><strong>02</strong><span data-i18n="bestStep2">Steam clean fabric and plastics</span></div>
+              <div><strong>03</strong><span data-i18n="bestStep3">Glass, dashboard and finishing shine</span></div>
+            </div>
+            <div class="best-seller-footer">
+              <div>
+                <span data-i18n="startingAt">Starting at</span>
+                <strong>€139</strong>
+              </div>
+              <a href="#contact" class="button-primary" data-i18n="bookPackage">Book this package</a>
+            </div>
           </div>
         </div>
       </section>
 
       <section class="section-intro" id="services">
         <div class="section-heading">
-          <p class="eyebrow">Services built to impress</p>
-          <h2>Complete cleaning that feels fresh, fast, and focused.</h2>
+          <p class="eyebrow" data-i18n="servicesEyebrow">Services built to impress</p>
+          <h2 data-i18n="servicesTitle">Complete cleaning that feels fresh, fast, and focused.</h2>
         </div>
         <div class="service-grid">
           <article class="service-card reveal active" data-service="Car Cleaning" role="button" tabindex="0" aria-label="Choose Car Cleaning">
             <div class="service-icon car"></div>
-            <h3>Car Cleaning</h3>
-            <p>Inside-out detailing, paint care, upholstery refresh and full exterior shine for every vehicle.</p>
-            <span>from €79</span>
+            <h3 data-i18n="serviceCar">Car Cleaning</h3>
+            <p data-i18n="serviceCarText">Inside-out detailing, paint care, upholstery refresh and full exterior shine for every vehicle.</p>
+            <span data-i18n="from79">from €79</span>
           </article>
           <article class="service-card reveal" data-service="Home & Office" role="button" tabindex="0" aria-label="Choose Home and Office">
             <div class="service-icon home"></div>
-            <h3>Home & Office</h3>
-            <p>Deep clean packages for kitchens, bathrooms, living areas and workspace surfaces with safe, premium products.</p>
-            <span>from €119</span>
+            <h3 data-i18n="serviceHome">Home & Office</h3>
+            <p data-i18n="serviceHomeText">Deep clean packages for kitchens, bathrooms, living areas and workspace surfaces with safe, premium products.</p>
+            <span data-i18n="from119">from €119</span>
           </article>
           <article class="service-card reveal" data-service="Sofa & Upholstery" role="button" tabindex="0" aria-label="Choose Sofa and Upholstery">
             <div class="service-icon sofa"></div>
-            <h3>Sofa & Upholstery</h3>
-            <p>Steam cleaning, stain removal and fabric protection for sofas, armchairs and textile furniture.</p>
-            <span>from €59</span>
+            <h3 data-i18n="serviceSofa">Sofa & Upholstery</h3>
+            <p data-i18n="serviceSofaText">Steam cleaning, stain removal and fabric protection for sofas, armchairs and textile furniture.</p>
+            <span data-i18n="from59">from €59</span>
           </article>
           <article class="service-card reveal" data-service="Garden & Outdoor" role="button" tabindex="0" aria-label="Choose Garden and Outdoor">
             <div class="service-icon garden"></div>
-            <h3>Garden & Outdoor</h3>
-            <p>Terrace cleaning, outdoor furniture care and debris removal to keep gardens and driveways immaculate.</p>
-            <span>from €99</span>
+            <h3 data-i18n="serviceGarden">Garden & Outdoor</h3>
+            <p data-i18n="serviceGardenText">Terrace cleaning, outdoor furniture care and debris removal to keep gardens and driveways immaculate.</p>
+            <span data-i18n="from99">from €99</span>
           </article>
         </div>
         <div class="detail-pricing-panel reveal" aria-label="Car detailing package pricing">
-          <div class="detail-pricing-card">
-            <h3>Car detailing packages</h3>
-            <p>Choose your package and car size. Small city cars like Fiat 500, Smart or MINI are best classified as <strong>City car</strong>. Mid-size sedans such as Audi A4, BMW 3 Series or Mercedes C-Class are typical <strong>Berlina</strong>. SUV and XL/Van pricing applies to larger vehicles.</p>
-            <ul class="pricing-list">
-              <li><strong>Express wash</strong> — from €59<br />city car €59 · berlina €69 · SUV €79 · XL/Van €99</li>
-              <li><strong>Interior reset</strong> — from €79<br />city car €79 · berlina €69 · SUV €79 · XL/Van €99</li>
-              <li><strong>Full detail</strong> — from €139<br />city car €139 · berlina €159 · SUV €189 · XL/Van €229</li>
-              <li><strong>Deep clean</strong> — from €249<br />city car €249 · berlina €279 · SUV €329 · XL/Van €399</li>
-              <li><strong>Showroom / VIP</strong><br />city car €499 · berlina €599 · XL/Van €699+</li>
-            </ul>
-            <p>Prices may change based on car condition, stain level, or extra service requests. Other services may be added later if requested.</p>
+          <div class="section-heading package-heading">
+            <p class="eyebrow" data-i18n="packagesEyebrow">Car detailing packages</p>
+            <h2 data-i18n="packagesTitle">Pick the level of care your car needs.</h2>
+            <p data-i18n="packagesText">Each package is priced by vehicle size. Final pricing can vary slightly depending on condition, stain level, and extra requests.</p>
+          </div>
+          <div class="package-showcase-grid">
+            <article class="package-showcase-card">
+              <img src="img/package_express.svg" alt="Express wash illustration" />
+              <div>
+                <span data-i18n="from59">from €59</span>
+                <h3 data-i18n="pkgExpress">Express wash</h3>
+                <p data-i18n="pkgExpressText">A quick exterior refresh for cars that need a clean, polished look without a deep interior service.</p>
+              </div>
+            </article>
+            <article class="package-showcase-card">
+              <img src="img/package_interior.svg" alt="Interior reset illustration" />
+              <div>
+                <span data-i18n="from79">from €79</span>
+                <h3 data-i18n="pkgInterior">Interior reset</h3>
+                <p data-i18n="pkgInteriorText">Focused interior cleaning for seats, carpets, plastics, glass and everyday dust buildup.</p>
+              </div>
+            </article>
+            <article class="package-showcase-card featured">
+              <img src="img/package_full_detail.svg" alt="Full detail illustration" />
+              <div>
+                <span data-i18n="from139">from €139</span>
+                <h3 data-i18n="pkgFull">Full detail</h3>
+                <p data-i18n="pkgFullText">The most complete standard package: exterior wash plus a polished, refreshed interior finish.</p>
+              </div>
+            </article>
+            <article class="package-showcase-card">
+              <img src="img/package_deep_clean.svg" alt="Deep clean illustration" />
+              <div>
+                <span data-i18n="from249">from €249</span>
+                <h3 data-i18n="pkgDeep">Deep clean</h3>
+                <p data-i18n="pkgDeepText">Designed for heavy dirt, stains, odor-sensitive interiors and cars that need serious restoration.</p>
+              </div>
+            </article>
+            <article class="package-showcase-card">
+              <img src="img/package_vip.svg" alt="Showroom VIP illustration" />
+              <div>
+                <span data-i18n="from499">from €499</span>
+                <h3 data-i18n="pkgVip">Showroom / VIP</h3>
+                <p data-i18n="pkgVipText">Premium preparation for a top-level finish with extra attention to visible details and presentation.</p>
+              </div>
+            </article>
           </div>
         </div>
       </section>
 
       <section class="trust-strip reveal" aria-label="GoClean Lux service guarantees">
-        <div><strong>Mobile team</strong><span>We bring equipment to you</span></div>
-        <div><strong>Luxembourg-wide</strong><span>Homes, offices and vehicles</span></div>
-        <div><strong>Premium finish</strong><span>Detail-minded cleaning process</span></div>
+        <div><strong data-i18n="trustMobile">Mobile team</strong><span data-i18n="trustMobileText">We bring equipment to you</span></div>
+        <div><strong data-i18n="trustLux">Luxembourg-wide</strong><span data-i18n="trustLuxText">Homes, offices and vehicles</span></div>
+        <div><strong data-i18n="trustPremium">Premium finish</strong><span data-i18n="trustPremiumText">Detail-minded cleaning process</span></div>
       </section>
 
       <section class="how-it-works" id="how">
         <div class="section-heading">
-          <p class="eyebrow">Easy booking, real results</p>
-          <h2>From booking to shining in three smooth steps.</h2>
+          <p class="eyebrow" data-i18n="howEyebrow">Easy booking, real results</p>
+          <h2 data-i18n="howTitle">From booking to shining in three smooth steps.</h2>
         </div>
         <div class="process-grid">
           <div class="process-step reveal">
             <span>1</span>
-            <h4>Book online</h4>
-            <p>Select your service, choose a time and we arrive ready with all equipment.</p>
+            <h4 data-i18n="how1Title">Book online</h4>
+            <p data-i18n="how1Text">Select your service, choose a time and we arrive ready with all equipment.</p>
           </div>
           <div class="process-step reveal">
             <span>2</span>
-            <h4>Professional service</h4>
-            <p>Experienced cleaners use eco-friendly products designed for cars, homes and furniture.</p>
+            <h4 data-i18n="how2Title">Professional service</h4>
+            <p data-i18n="how2Text">Experienced cleaners use eco-friendly products designed for cars, homes and furniture.</p>
           </div>
           <div class="process-step reveal">
             <span>3</span>
-            <h4>Enjoy the glow</h4>
-            <p>Receive a complete walkthrough and satisfaction check before we leave your space refreshed.</p>
+            <h4 data-i18n="how3Title">Enjoy the glow</h4>
+            <p data-i18n="how3Text">Receive a complete walkthrough and satisfaction check before we leave your space refreshed.</p>
           </div>
         </div>
       </section>
 
       <section class="testimonials" id="testimonials">
         <div class="section-heading">
-          <p class="eyebrow">Trusted in Luxembourg</p>
-          <h2>What our clients say after the clean.</h2>
+          <p class="eyebrow" data-i18n="reviewsEyebrow">Trusted in Luxembourg</p>
+          <h2 data-i18n="reviewsTitle">What our clients say after the clean.</h2>
         </div>
         <div class="testimonial-grid">
           <blockquote class="testimonial-card reveal">
-            <p>"GoClean Lux made my car look brand new again. The team arrived on time, and the finish was flawless."</p>
+            <p data-i18n="review1">"GoClean Lux made my car look brand new again. The team arrived on time, and the finish was flawless."</p>
             <footer>— Laura, Luxembourg City</footer>
           </blockquote>
           <blockquote class="testimonial-card reveal">
-            <p>"They cleaned our living room sofa and it looked amazing. Friendly service and no fuss booking."</p>
+            <p data-i18n="review2">"They cleaned our living room sofa and it looked amazing. Friendly service and no fuss booking."</p>
             <footer>— Marc, Kirchberg</footer>
           </blockquote>
           <blockquote class="testimonial-card reveal">
-            <p>"Excellent garden patio cleaning. The terrace was spotless and the crew left everything tidy."</p>
+            <p data-i18n="review3">"Excellent garden patio cleaning. The terrace was spotless and the crew left everything tidy."</p>
             <footer>— Sophie, Esch-sur-Alzette</footer>
           </blockquote>
         </div>
@@ -178,35 +222,40 @@
 
       <section class="booking-panel" id="contact">
         <div class="section-heading">
-          <p class="eyebrow accent">Ready for a spotless finish?</p>
-          <h2>Book your GoClean Lux session today.</h2>
-          <p>Pick a service, choose a date and time, then send your request instantly.</p>
+          <p class="eyebrow accent" data-i18n="bookingEyebrow">Ready for a spotless finish?</p>
+          <h2 data-i18n="bookingTitle">Book your GoClean Lux session today.</h2>
+          <p data-i18n="bookingText">Pick a service, choose a date and time, then send your request instantly.</p>
         </div>
         <div class="booking-grid">
           <div class="booking-form reveal">
             <form id="bookingForm">
+              <div class="booking-step-title form-row-wide">
+                <span data-i18n="step1">Step 1</span>
+                <h3 data-i18n="stepServiceTitle">Choose the service</h3>
+                <p data-i18n="stepServiceText">Start with the type of cleaning you need.</p>
+              </div>
               <div class="form-row form-row-wide">
-                <label for="serviceSelect">Choose service</label>
+                <label for="serviceSelect" data-i18n="chooseService">Choose service</label>
                 <div class="booking-service-grid" id="bookingServiceOptions">
                   <button type="button" class="booking-service-option selected" data-service="Car Cleaning">
                     <span class="service-dot car"></span>
-                    <span><strong>Car Cleaning</strong><small>Mobile detailing packages</small></span>
-                    <em>from €59</em>
+                    <span><strong data-i18n="serviceCar">Car Cleaning</strong><small data-i18n="bookingCarSmall">Mobile detailing packages</small></span>
+                    <em data-i18n="from59">from €59</em>
                   </button>
                   <button type="button" class="booking-service-option" data-service="Home & Office">
                     <span class="service-dot home"></span>
-                    <span><strong>Home & Office</strong><small>Deep cleaning for interiors</small></span>
-                    <em>from €119</em>
+                    <span><strong data-i18n="serviceHome">Home & Office</strong><small data-i18n="bookingHomeSmall">Deep cleaning for interiors</small></span>
+                    <em data-i18n="from119">from €119</em>
                   </button>
                   <button type="button" class="booking-service-option" data-service="Sofa & Upholstery">
                     <span class="service-dot sofa"></span>
-                    <span><strong>Sofa & Upholstery</strong><small>Steam and fabric refresh</small></span>
-                    <em>from €59</em>
+                    <span><strong data-i18n="serviceSofa">Sofa & Upholstery</strong><small data-i18n="bookingSofaSmall">Steam and fabric refresh</small></span>
+                    <em data-i18n="from59">from €59</em>
                   </button>
                   <button type="button" class="booking-service-option" data-service="Garden & Outdoor">
                     <span class="service-dot garden"></span>
-                    <span><strong>Garden & Outdoor</strong><small>Terraces and exterior care</small></span>
-                    <em>from €99</em>
+                    <span><strong data-i18n="serviceGarden">Garden & Outdoor</strong><small data-i18n="bookingGardenSmall">Terraces and exterior care</small></span>
+                    <em data-i18n="from99">from €99</em>
                   </button>
                 </div>
                 <select id="serviceSelect" class="sr-only" required aria-label="Selected service">
@@ -216,46 +265,71 @@
                   <option value="Garden & Outdoor">Garden & Outdoor</option>
                 </select>
               </div>
+              <div class="booking-step-title form-row-wide car-details-row" id="packageStepTitle" style="display:none;">
+                <span data-i18n="step2">Step 2</span>
+                <h3 data-i18n="stepPackageTitle">Choose the car package</h3>
+                <p data-i18n="stepPackageText">Pick the level of detail. The image and description explain what each package is for.</p>
+              </div>
               <div class="form-row form-row-wide car-details-row" id="serviceTypeRow" style="display:none;">
-                <label>Choose car package</label>
+                <label data-i18n="choosePackage">Choose car package</label>
                 <div class="option-grid" id="packageOptions">
                   <button type="button" class="option-button package-option" data-package="Express wash">
-                    <strong>Express wash</strong>
-                    <span>Fast exterior refresh</span>
-                    <em>from €59</em>
+                    <img class="package-option-image" src="img/package_express.svg" alt="Express wash" />
+                    <div>
+                      <strong data-i18n="pkgExpress">Express wash</strong>
+                      <span data-i18n="pkgExpressShort">Fast exterior refresh</span>
+                      <em data-i18n="from59">from €59</em>
+                    </div>
                   </button>
                   <button type="button" class="option-button package-option" data-package="Interior reset">
-                    <strong>Interior reset</strong>
-                    <span>Seats, plastics, carpets</span>
-                    <em>from €79</em>
+                    <img class="package-option-image" src="img/package_interior.svg" alt="Interior reset" />
+                    <div>
+                      <strong data-i18n="pkgInterior">Interior reset</strong>
+                      <span data-i18n="pkgInteriorShort">Seats, plastics, carpets</span>
+                      <em data-i18n="from79">from €79</em>
+                    </div>
                   </button>
                   <button type="button" class="option-button package-option selected" data-package="Full detail">
-                    <strong>Full detail</strong>
-                    <span>Inside and outside finish</span>
-                    <em>from €139</em>
-                    <small class="mini-pill">Popular</small>
+                    <img class="package-option-image" src="img/package_full_detail.svg" alt="Full detail" />
+                    <div>
+                      <strong data-i18n="pkgFull">Full detail</strong>
+                      <span data-i18n="pkgFullShort">Inside and outside finish</span>
+                      <em data-i18n="from139">from €139</em>
+                      <small class="mini-pill" data-i18n="popular">Popular</small>
+                    </div>
                   </button>
                   <button type="button" class="option-button package-option" data-package="Deep clean">
-                    <strong>Deep clean</strong>
-                    <span>Heavy dirt and stains</span>
-                    <em>from €249</em>
+                    <img class="package-option-image" src="img/package_deep_clean.svg" alt="Deep clean" />
+                    <div>
+                      <strong data-i18n="pkgDeep">Deep clean</strong>
+                      <span data-i18n="pkgDeepShort">Heavy dirt and stains</span>
+                      <em data-i18n="from249">from €249</em>
+                    </div>
                   </button>
                   <button type="button" class="option-button package-option" data-package="Showroom / VIP">
-                    <strong>Showroom / VIP</strong>
-                    <span>Premium correction finish</span>
-                    <em>from €499</em>
+                    <img class="package-option-image" src="img/package_vip.svg" alt="Showroom VIP" />
+                    <div>
+                      <strong data-i18n="pkgVip">Showroom / VIP</strong>
+                      <span data-i18n="pkgVipShort">Premium correction finish</span>
+                      <em data-i18n="from499">from €499</em>
+                    </div>
                   </button>
                 </div>
               </div>
+              <div class="booking-step-title form-row-wide car-details-row" id="vehicleStepTitle" style="display:none;">
+                <span data-i18n="step3">Step 3</span>
+                <h3 data-i18n="stepVehicleTitle">Choose the vehicle size</h3>
+                <p data-i18n="stepVehicleText">This helps calculate the estimate for your selected package.</p>
+              </div>
               <div class="form-row form-row-wide car-details-row" id="carSizeRow" style="display:none;">
-                <label>Vehicle size</label>
+                <label data-i18n="vehicleSize">Vehicle size</label>
                 <div class="option-grid" id="carSizeOptions">
                   <button type="button" class="option-button car-size-option selected" data-size="cityCar">
-                    <strong>City car</strong>
+                    <strong data-i18n="cityCar">City car</strong>
                     <span>Fiat 500, Smart, MINI</span>
                   </button>
                   <button type="button" class="option-button car-size-option" data-size="berlina">
-                    <strong>Berlina</strong>
+                    <strong data-i18n="berlina">Berlina</strong>
                     <span>Audi A4, BMW 3 Series</span>
                   </button>
                   <button type="button" class="option-button car-size-option" data-size="suv">
@@ -267,60 +341,70 @@
                     <span>V-Class, Transporter</span>
                   </button>
                 </div>
-                <p class="form-note small-note">Choose the size that best fits your vehicle. Final price may vary based on condition and extra service needs.</p>
+                <p class="form-note small-note" data-i18n="vehicleNote">Choose the size that best fits your vehicle. Final price may vary based on condition and extra service needs.</p>
+              </div>
+              <div class="booking-step-title form-row-wide">
+                <span data-i18n="step4">Step 4</span>
+                <h3 data-i18n="stepDateTitle">Choose date and time</h3>
+                <p data-i18n="stepDateText">Select your preferred day and one available 3-hour arrival window.</p>
               </div>
               <div class="form-row">
-                <label for="dateSelect">Preferred date</label>
+                <label for="dateSelect" data-i18n="preferredDate">Preferred date</label>
                 <div class="date-input-wrapper">
                   <input id="dateSelect" type="date" required />
                   <button type="button" id="calendarToggle" class="calendar-toggle" aria-label="Open calendar">📅</button>
                 </div>
               </div>
               <div class="form-row form-row-wide">
-                <label>Available 3-hour slots</label>
+                <label data-i18n="availableSlots">Available 3-hour slots</label>
                 <div id="slotContainer" class="slot-list"></div>
               </div>
-              <div class="form-row">
-                <label for="nameInput">Full name</label>
-                <input id="nameInput" type="text" placeholder="Your name" required />
+              <div class="booking-step-title form-row-wide">
+                <span data-i18n="step5">Step 5</span>
+                <h3 data-i18n="stepDetailsTitle">Your contact details</h3>
+                <p data-i18n="stepDetailsText">We use these details to confirm your booking.</p>
               </div>
               <div class="form-row">
-                <label for="phoneInput">Phone number</label>
+                <label for="nameInput" data-i18n="fullName">Full name</label>
+                <input id="nameInput" type="text" placeholder="Your name" data-placeholder-key="namePlaceholder" required />
+              </div>
+              <div class="form-row">
+                <label for="phoneInput" data-i18n="phoneNumber">Phone number</label>
                 <input id="phoneInput" type="tel" placeholder="+352 12 34 56 78" required />
               </div>
               <div class="form-row">
-                <label for="emailInput">Email address</label>
+                <label for="emailInput" data-i18n="emailAddress">Email address</label>
                 <input id="emailInput" type="email" placeholder="contact@example.com" required />
               </div>
               <div class="form-row form-row-wide">
-                <label for="addressInput">Service address</label>
-                <input id="addressInput" type="text" placeholder="Street, city, Luxembourg" required />
+                <label for="addressInput" data-i18n="serviceAddress">Service address</label>
+                <input id="addressInput" type="text" placeholder="Street, city, Luxembourg" data-placeholder-key="addressPlaceholder" required />
               </div>
               <div class="form-row form-row-wide">
-                <label for="notesInput">Notes</label>
-                <textarea id="notesInput" placeholder="Tell us anything useful: car model, access details, stains, parking..." rows="4"></textarea>
+                <label for="notesInput" data-i18n="notes">Notes</label>
+                <textarea id="notesInput" placeholder="Tell us anything useful: car model, access details, stains, parking..." data-placeholder-key="notesPlaceholder" rows="4"></textarea>
               </div>
-              <button type="submit" class="button-primary">Request booking</button>
-              <p class="form-note">We’ll confirm your booking and send a summary to your email after you submit.</p>
+              <button type="submit" class="button-primary" data-i18n="requestBooking">Request booking</button>
+              <p class="form-note" data-i18n="formNote">We’ll confirm your booking and send a summary to your email after you submit.</p>
               <div id="bookingMessage" class="booking-message"></div>
             </form>
           </div>
 
           <aside class="booking-summary reveal">
             <div class="summary-card">
-              <h3>Booking summary</h3>
-              <div class="summary-row"><span>Service</span><strong id="summaryService">Car Cleaning</strong></div>
-              <div class="summary-row"><span>Package</span><strong id="summaryPackage">Full detail</strong></div>
-              <div class="summary-row"><span>Vehicle</span><strong id="summaryVehicle">City car</strong></div>
-              <div class="summary-row"><span>Date</span><strong id="summaryDate">Select a date</strong></div>
-              <div class="summary-row"><span>Time</span><strong id="summaryTime">Pick a slot</strong></div>
-              <div class="summary-row"><span>Estimate</span><strong id="summaryPrice">from €59</strong></div>
-              <div class="summary-row"><span>Duration</span><strong>3 hours</strong></div>
-              <p class="summary-copy">All bookings are offered within a 9:00–19:00 window. Choose your preferred 3-hour arrival slot.</p>
+              <h3 data-i18n="summaryTitle">Booking summary</h3>
+              <div class="summary-row"><span data-i18n="summaryService">Service</span><strong id="summaryService">Car Cleaning</strong></div>
+              <div class="summary-row"><span data-i18n="summaryPackage">Package</span><strong id="summaryPackage">Full detail</strong></div>
+              <div class="summary-row"><span data-i18n="summaryVehicle">Vehicle</span><strong id="summaryVehicle">City car</strong></div>
+              <div class="summary-row"><span data-i18n="summaryDate">Date</span><strong id="summaryDate">Select a date</strong></div>
+              <div class="summary-row"><span data-i18n="summaryTime">Time</span><strong id="summaryTime">Pick a slot</strong></div>
+              <div class="summary-row"><span data-i18n="summaryEstimate">Estimate</span><strong id="summaryPrice">from €59</strong></div>
+              <div class="summary-row"><span data-i18n="summaryDuration">Duration</span><strong data-i18n="duration3">3 hours</strong></div>
+              <p class="summary-copy" data-i18n="summaryCopy">All bookings are offered within a 9:00–19:00 window. Choose your preferred 3-hour arrival slot.</p>
               <div class="booking-assurance">
-                <div><strong>Instant request</strong><span>Your details are sent to GoClean Lux.</span></div>
-                <div><strong>Manual confirmation</strong><span>We confirm the exact arrival time with you.</span></div>
-                <div><strong>Mobile service</strong><span>We arrive with the cleaning equipment.</span></div>
+                <div><strong data-i18n="assurance1">Instant request</strong><span data-i18n="assurance1Text">Your details are sent to GoClean Lux.</span></div>
+                <div><strong data-i18n="assurance2">Manual confirmation</strong><span data-i18n="assurance2Text">We confirm the exact arrival time with you.</span></div>
+                <div><strong data-i18n="assurance3">Mobile service</strong><span data-i18n="assurance3Text">We arrive with the cleaning equipment.</span></div>
               </div>
               <div class="contact-card">
                 <p><strong>Email</strong> contact@goclean.lu</p>
@@ -334,18 +418,18 @@
   </div>
 
   <footer class="footer">
-    <p>© <span id="year"></span> GoClean Lux — Mobile Cleaning & Detailing in Luxembourg</p>
+    <p>© <span id="year"></span> GoClean Lux — <span data-i18n="footerText">Mobile Cleaning & Detailing in Luxembourg</span></p>
   </footer>
 
   <div class="booking-modal" id="bookingModal" aria-hidden="true" role="dialog" aria-labelledby="bookingModalTitle">
     <div class="booking-modal-card">
       <button class="modal-close" id="modalClose" type="button" aria-label="Close confirmation">×</button>
       <div class="modal-mark" aria-hidden="true">✓</div>
-      <p class="eyebrow accent">Booking request sent</p>
-      <h2 id="bookingModalTitle">Thank you, <span id="modalName">there</span>.</h2>
+      <p class="eyebrow accent" data-i18n="modalEyebrow">Booking request sent</p>
+      <h2 id="bookingModalTitle"><span data-i18n="modalThanks">Thank you,</span> <span id="modalName">there</span>.</h2>
       <p id="modalCopy">Your request has been received. GoClean Lux will confirm the appointment shortly.</p>
       <div class="modal-summary" id="modalSummary"></div>
-      <button class="button-primary" id="modalDone" type="button">Done</button>
+      <button class="button-primary" id="modalDone" type="button" data-i18n="done">Done</button>
     </div>
   </div>
 

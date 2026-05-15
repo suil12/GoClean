@@ -165,15 +165,20 @@ function connectSmtp() {
   const smtpHost = process.env.SMTP_HOST;
   const smtpPort = Number(process.env.SMTP_PORT || 587);
   const secure = process.env.SMTP_SECURE === 'true';
+  const useImplicitTls = secure && smtpPort === 465;
 
   return new Promise((resolve, reject) => {
-    const socket = secure
+    const socket = useImplicitTls
       ? tls.connect({ host: smtpHost, port: smtpPort, servername: smtpHost })
       : net.connect({ host: smtpHost, port: smtpPort });
 
+    socket.setEncoding('utf8');
     socket.setTimeout(15000);
-    socket.once('connect', () => resolve(socket));
-    socket.once('secureConnect', () => resolve(socket));
+    if (useImplicitTls) {
+      socket.once('secureConnect', () => resolve(socket));
+    } else {
+      socket.once('connect', () => resolve(socket));
+    }
     socket.once('timeout', () => {
       socket.destroy();
       reject(new Error('SMTP connection timed out.'));
@@ -195,7 +200,9 @@ function upgradeToTls(socket) {
 
 async function sendBookingEmail(booking) {
   const smtpHost = process.env.SMTP_HOST;
+  const smtpPort = Number(process.env.SMTP_PORT || 587);
   const secure = process.env.SMTP_SECURE === 'true';
+  const useImplicitTls = secure && smtpPort === 465;
   const from = process.env.SMTP_FROM || process.env.SMTP_USER;
   const subject = `New GoClean Lux booking: ${booking.service} on ${booking.date}`;
   const text = [
@@ -224,7 +231,7 @@ async function sendBookingEmail(booking) {
   try {
     await smtpCommand(socket, null, [220]);
     await smtpCommand(socket, `EHLO ${smtpHost}`, [250]);
-    if (!secure) {
+    if (!useImplicitTls) {
       await smtpCommand(socket, 'STARTTLS', [220]);
       socket = await upgradeToTls(socket);
       await smtpCommand(socket, `EHLO ${smtpHost}`, [250]);
