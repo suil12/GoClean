@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="cursor-glow" aria-hidden="true"></div>
   <div class="page-shell">
     <header class="topbar">
       <div class="brand-wrap">
@@ -19,6 +20,10 @@
           <p class="subtext">Mobile Cleaning & Detailing</p>
         </div>
       </div>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
       <nav class="nav-links">
         <a href="#services">Services</a>
         <a href="#how">How it Works</a>
@@ -38,36 +43,36 @@
             <a href="#services" class="button-secondary">View services</a>
           </div>
           <div class="hero-highlights">
-            <div><strong>50+</strong> satisfied clients</div>
-            <div><strong>24h</strong> fast booking</div>
+            <div><strong data-count="50">0</strong> satisfied clients</div>
+            <div><strong data-count="24">0</strong>h fast booking</div>
             <div><strong>Eco</strong> premium products</div>
           </div>
         </div>
 
-        <div class="hero-card">
-          <div class="hero-card-top">
-            <div class="hero-card-brand">
-              <img class="hero-card-logo" src="img/logo_transp.png" alt="GoClean Lux logo" />
-              <div>
-                <span>GoClean Lux</span>
-                <p>Mobile Car & Home Care</p>
-              </div>
-            </div>
-            <div class="badge">⭐ Best Seller</div>
+        <div class="best-seller-panel" aria-label="GoClean Lux best seller">
+          <div class="best-seller-head">
+            <span class="badge">Best Seller</span>
+            <img class="hero-card-logo" src="img/logo_transp.png" alt="GoClean Lux logo" />
           </div>
-          <div class="hero-card-visual">
-            <div class="car-shape"></div>
-            <div class="sparkle"></div>
+          <div class="best-seller-main">
+            <p class="eyebrow">Most booked package</p>
+            <h2>Full interior detail</h2>
+            <p>A complete refresh for seats, carpets, dashboard, trims, glass and odor-sensitive surfaces.</p>
           </div>
-          <div class="hero-card-meta">
+          <div class="package-meter" aria-hidden="true">
+            <span></span>
+          </div>
+          <div class="package-checklist">
+            <div><strong>01</strong><span>Vacuum and dust extraction</span></div>
+            <div><strong>02</strong><span>Steam clean fabric and plastics</span></div>
+            <div><strong>03</strong><span>Glass, dashboard and finishing shine</span></div>
+          </div>
+          <div class="best-seller-footer">
             <div>
-              <p>Auto</p>
-              <strong>Full Detail</strong>
+              <span>Starting at</span>
+              <strong>€79</strong>
             </div>
-            <div>
-              <p>Interior</p>
-              <strong>Deep Clean</strong>
-            </div>
+            <a href="#contact" class="button-primary">Book this package</a>
           </div>
         </div>
       </section>
@@ -78,27 +83,37 @@
           <h2>Complete cleaning that feels fresh, fast, and focused.</h2>
         </div>
         <div class="service-grid">
-          <article class="service-card reveal">
+          <article class="service-card reveal active" data-service="Car Cleaning" role="button" tabindex="0" aria-label="Choose Car Cleaning">
             <div class="service-icon car"></div>
             <h3>Car Cleaning</h3>
             <p>Inside-out detailing, paint care, upholstery refresh and full exterior shine for every vehicle.</p>
+            <span>from €79</span>
           </article>
-          <article class="service-card reveal">
+          <article class="service-card reveal" data-service="Home & Office" role="button" tabindex="0" aria-label="Choose Home and Office">
             <div class="service-icon home"></div>
             <h3>Home & Office</h3>
             <p>Deep clean packages for kitchens, bathrooms, living areas and workspace surfaces with safe, premium products.</p>
+            <span>from €119</span>
           </article>
-          <article class="service-card reveal">
+          <article class="service-card reveal" data-service="Sofa & Upholstery" role="button" tabindex="0" aria-label="Choose Sofa and Upholstery">
             <div class="service-icon sofa"></div>
             <h3>Sofa & Upholstery</h3>
             <p>Steam cleaning, stain removal and fabric protection for sofas, armchairs and textile furniture.</p>
+            <span>from €59</span>
           </article>
-          <article class="service-card reveal">
+          <article class="service-card reveal" data-service="Garden & Outdoor" role="button" tabindex="0" aria-label="Choose Garden and Outdoor">
             <div class="service-icon garden"></div>
             <h3>Garden & Outdoor</h3>
             <p>Terrace cleaning, outdoor furniture care and debris removal to keep gardens and driveways immaculate.</p>
+            <span>from €99</span>
           </article>
         </div>
+      </section>
+
+      <section class="trust-strip reveal" aria-label="GoClean Lux service guarantees">
+        <div><strong>Mobile team</strong><span>We bring equipment to you</span></div>
+        <div><strong>Luxembourg-wide</strong><span>Homes, offices and vehicles</span></div>
+        <div><strong>Premium finish</strong><span>Detail-minded cleaning process</span></div>
       </section>
 
       <section class="how-it-works" id="how">
@@ -155,7 +170,7 @@
         <div class="booking-grid">
           <div class="booking-form reveal">
             <form id="bookingForm">
-              <div class="form-row">
+              <div class="form-row form-row-wide">
                 <label for="serviceSelect">Service</label>
                 <select id="serviceSelect" required>
                   <option value="Car Cleaning">Car Cleaning</option>
@@ -171,7 +186,7 @@
                   <button type="button" id="calendarToggle" class="calendar-toggle" aria-label="Open calendar">📅</button>
                 </div>
               </div>
-              <div class="form-row">
+              <div class="form-row form-row-wide">
                 <label>Available 3-hour slots</label>
                 <div id="slotContainer" class="slot-list"></div>
               </div>
@@ -187,6 +202,14 @@
                 <label for="emailInput">Email address</label>
                 <input id="emailInput" type="email" placeholder="contact@example.com" required />
               </div>
+              <div class="form-row form-row-wide">
+                <label for="addressInput">Service address</label>
+                <input id="addressInput" type="text" placeholder="Street, city, Luxembourg" required />
+              </div>
+              <div class="form-row form-row-wide">
+                <label for="notesInput">Notes</label>
+                <textarea id="notesInput" placeholder="Tell us anything useful: car model, access details, stains, parking..." rows="4"></textarea>
+              </div>
               <button type="submit" class="button-primary">Request booking</button>
               <p class="form-note">We’ll confirm your booking and send a summary to your email after you submit.</p>
               <div id="bookingMessage" class="booking-message"></div>
@@ -199,8 +222,14 @@
               <div class="summary-row"><span>Service</span><strong id="summaryService">Car Cleaning</strong></div>
               <div class="summary-row"><span>Date</span><strong id="summaryDate">Select a date</strong></div>
               <div class="summary-row"><span>Time</span><strong id="summaryTime">Pick a slot</strong></div>
+              <div class="summary-row"><span>Estimate</span><strong id="summaryPrice">from €79</strong></div>
               <div class="summary-row"><span>Duration</span><strong>3 hours</strong></div>
               <p class="summary-copy">All bookings are offered within a 9:00–19:00 window. Choose your preferred 3-hour arrival slot.</p>
+              <div class="booking-assurance">
+                <div><strong>Instant request</strong><span>Your details are sent to GoClean Lux.</span></div>
+                <div><strong>Manual confirmation</strong><span>We confirm the exact arrival time with you.</span></div>
+                <div><strong>Mobile service</strong><span>We arrive with the cleaning equipment.</span></div>
+              </div>
               <div class="contact-card">
                 <p><strong>Email</strong> contact@goclean.lu</p>
                 <p><strong>Phone</strong> +352 661 920 598</p>
@@ -215,6 +244,18 @@
   <footer class="footer">
     <p>© <span id="year"></span> GoClean Lux — Mobile Cleaning & Detailing in Luxembourg</p>
   </footer>
+
+  <div class="booking-modal" id="bookingModal" aria-hidden="true" role="dialog" aria-labelledby="bookingModalTitle">
+    <div class="booking-modal-card">
+      <button class="modal-close" id="modalClose" type="button" aria-label="Close confirmation">×</button>
+      <div class="modal-mark" aria-hidden="true">✓</div>
+      <p class="eyebrow accent">Booking request sent</p>
+      <h2 id="bookingModalTitle">Thank you, <span id="modalName">there</span>.</h2>
+      <p id="modalCopy">Your request has been received. GoClean Lux will confirm the appointment shortly.</p>
+      <div class="modal-summary" id="modalSummary"></div>
+      <button class="button-primary" id="modalDone" type="button">Done</button>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
