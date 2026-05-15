@@ -1,1 +1,28 @@
-[]
+[
+  {
+    "service": "Car Cleaning",
+    "serviceType": "Basic Wash",
+    "carSize": "Sedan",
+    "date": "2024-05-20",
+    "time": "09:00 - 12:00",
+    "estimate": "€50",
+    "name": "Test User",
+    "phone": "123456789",
+    "email": "test@example.com",
+    "address": "Test Address",
+    "notes": "Test booking"
+  },
+  {
+    "service": "Car Cleaning",
+    "serviceType": "Deep clean",
+    "carSize": "City car",
+    "date": "2026-05-15",
+    "time": "15:00 - 18:00",
+    "estimate": "from €249",
+    "name": "souhail nmili",
+    "phone": "+393518825590",
+    "email": "souhail_12@icloud.com",
+    "address": "via piovale 63",
+    "notes": ""
+  }
+]

@@ -35,7 +35,7 @@ function loadLocalEnv() {
 loadLocalEnv();
 
 const port = process.env.PORT || 3000;
-const host = process.env.HOST || '127.0.0.1';
+const host = process.env.HOST || '0.0.0.0';
 const bookingReceiverEmail = process.env.BOOKING_RECEIVER_EMAIL || 'contact@goclean.lu';
 const bookingsFile = path.join(__dirname, 'bookings.json');
 const publicRoot = __dirname;
