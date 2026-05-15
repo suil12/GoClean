@@ -4,7 +4,7 @@
   "description": "GoClean Lux static website with a Node.js static server.",
   "main": "server.js",
   "scripts": {
-    "start": "npm start",
+    "start": "node server.js",
     "dev": "nodemon server.js"
   },
   "author": "GoClean Lux",
