@@ -219,6 +219,7 @@ async function sendBookingEmail(booking) {
     .join('\n');
 
   let socket = await connectSmtp();
+  let emailAccepted = false;
 
   try {
     await smtpCommand(socket, null, [220]);
@@ -236,9 +237,18 @@ async function sendBookingEmail(booking) {
     await smtpCommand(socket, 'DATA', [354]);
     socket.write(`${formatEmailMessage({ from, to: bookingReceiverEmail, replyTo: booking.email, subject, text })}\r\n.\r\n`);
     await smtpCommand(socket, null, [250]);
-    await smtpCommand(socket, 'QUIT', [221]);
+    emailAccepted = true;
+    try {
+      await smtpCommand(socket, 'QUIT', [221]);
+    } catch (quitError) {
+      console.warn('SMTP QUIT failed after successful send:', quitError.message);
+    }
   } finally {
     socket.end();
+  }
+
+  if (!emailAccepted) {
+    throw new Error('Email was not accepted by the SMTP server.');
   }
 }
 
