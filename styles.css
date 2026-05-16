@@ -109,7 +109,7 @@ a {
 .brand-logo {
   width: 108px;
   max-height: 54px;
-  object-fit: contain;
+  object-fit: cover;
   filter: drop-shadow(0 10px 16px rgba(16, 34, 53, 0.16));
 }
 
@@ -619,8 +619,7 @@ a {
   width: 100%;
   aspect-ratio: 1.35;
   display: block;
-  object-fit: contain;
-  background: rgba(238, 248, 248, 0.72);
+  object-fit: cover;
 }
 
 .package-showcase-card div {
@@ -822,8 +821,7 @@ label {
   height: 100%;
   min-height: 128px;
   border-radius: var(--radius);
-  object-fit: contain;
-  background: rgba(238, 248, 248, 0.72);
+  object-fit: cover;
 }
 
 .package-option > div {
