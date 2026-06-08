@@ -130,21 +130,54 @@ function formatEmailMessage({ from, to, replyTo, subject, text }) {
   ].join('\r\n');
 }
 
+function formatBookingEmailText(booking) {
+  return [
+    'New GoClean Lux booking request',
+    '',
+    'BOOKING',
+    `Service: ${booking.service || 'N/A'}`,
+    `Package: ${booking.serviceType || 'N/A'}`,
+    `Vehicle size: ${booking.carSize || 'N/A'}`,
+    `Date: ${booking.date || 'N/A'}`,
+    `Time: ${booking.time || 'N/A'}`,
+    `Estimate: ${booking.estimate || 'N/A'}`,
+    `Website language: ${booking.language || 'N/A'}`,
+    `Submitted at: ${booking.submittedAt || 'N/A'}`,
+    '',
+    'CUSTOMER',
+    `Name: ${booking.name || 'N/A'}`,
+    `Phone: ${booking.phone || 'N/A'}`,
+    `Email: ${booking.email || 'N/A'}`,
+    `Service address: ${booking.address || 'N/A'}`,
+    '',
+    'NOTES',
+    booking.notes || 'No notes provided',
+  ].join('\n');
+}
+
 function readSmtpResponse(socket) {
   return new Promise((resolve, reject) => {
     let buffer = '';
+    const cleanup = () => {
+      socket.off('data', onData);
+      socket.off('error', onError);
+    };
+    const onError = (error) => {
+      cleanup();
+      reject(error);
+    };
     const onData = (chunk) => {
       buffer += chunk.toString('utf8');
       const lines = buffer.split(/\r?\n/).filter(Boolean);
       const lastLine = lines[lines.length - 1] || '';
       if (/^\d{3} /.test(lastLine)) {
-        socket.off('data', onData);
+        cleanup();
         resolve(buffer);
       }
     };
 
     socket.on('data', onData);
-    socket.once('error', reject);
+    socket.once('error', onError);
   });
 }
 
@@ -205,25 +238,7 @@ async function sendBookingEmail(booking) {
   const useImplicitTls = secure && smtpPort === 465;
   const from = process.env.SMTP_FROM || process.env.SMTP_USER;
   const subject = `New GoClean Lux booking: ${booking.service} on ${booking.date}`;
-  const text = [
-    'New GoClean Lux booking request',
-    '',
-    `Service: ${booking.service}`,
-    booking.service === 'Car Cleaning' ? `Package: ${booking.serviceType}` : null,
-    booking.service === 'Car Cleaning' ? `Vehicle size: ${booking.carSize}` : null,
-    `Date: ${booking.date}`,
-    `Time: ${booking.time}`,
-    `Estimate: ${booking.estimate}`,
-    '',
-    `Name: ${booking.name}`,
-    `Phone: ${booking.phone}`,
-    `Email: ${booking.email}`,
-    `Address: ${booking.address}`,
-    '',
-    `Notes: ${booking.notes || 'No notes provided'}`,
-  ]
-    .filter(Boolean)
-    .join('\n');
+  const text = formatBookingEmailText(booking);
 
   let socket = await connectSmtp();
   let emailAccepted = false;
@@ -299,11 +314,13 @@ async function handleBooking(req, res) {
       date: clean(body.date),
       time: clean(body.time),
       estimate: clean(body.estimate),
+      language: clean(body.language),
       name: clean(body.name),
       phone: clean(body.phone),
       email: clean(body.email),
       address: clean(body.address),
       notes: clean(body.notes),
+      submittedAt: new Date().toISOString(),
     };
 
     const requiredFields = ['service', 'date', 'time', 'name', 'phone', 'email', 'address'];
@@ -322,11 +339,10 @@ async function handleBooking(req, res) {
       return;
     }
 
-    bookings.push(booking);
-    saveBookings(bookings);
-
     if (!isEmailConfigured()) {
       console.log('New GoClean Lux booking request:', booking);
+      bookings.push(booking);
+      saveBookings(bookings);
       sendJson(res, 200, {
         mailSent: false,
         message: 'Booking received, but SMTP email delivery is not configured yet.',
@@ -335,6 +351,8 @@ async function handleBooking(req, res) {
     }
 
     await sendBookingEmail(booking);
+    bookings.push(booking);
+    saveBookings(bookings);
     sendJson(res, 200, { mailSent: true, message: 'Booking request sent.' });
   } catch (error) {
     console.error('Booking request failed:', error);

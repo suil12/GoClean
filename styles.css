@@ -478,6 +478,13 @@ a {
   font-size: 2rem;
 }
 
+.best-seller-footer s {
+  display: inline-block;
+  margin-top: 2px;
+  color: rgba(16, 34, 53, 0.42);
+  font-weight: 900;
+}
+
 .section-intro,
 .how-it-works,
 .testimonials,
@@ -603,7 +610,7 @@ a {
 
 .package-showcase-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
 }
 
@@ -1262,7 +1269,7 @@ textarea {
 
 @media (max-width: 780px) {
   .page-shell {
-    width: min(100% - 28px, 1180px);
+    width: min(100% - 20px, 1180px);
   }
 
   .topbar {
@@ -1321,15 +1328,38 @@ textarea {
 
   .slot-list {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .booking-form form {
     grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .booking-form,
+  .booking-summary {
+    padding: 18px;
+  }
+
+  .booking-step-title {
+    margin-top: 12px;
+    padding: 18px 16px;
+    border-left-width: 4px;
+  }
+
+  .booking-step-title h3 {
+    font-size: 1.45rem;
+    line-height: 1.12;
+  }
+
+  .booking-step-title p {
+    font-size: 0.98rem;
   }
 
   .booking-service-grid,
   .option-grid {
     grid-template-columns: 1fr;
+    gap: 14px;
   }
 
   .package-showcase-grid {
@@ -1337,20 +1367,63 @@ textarea {
   }
 
   .booking-service-option {
-    grid-template-columns: 34px 1fr;
+    min-height: 112px;
+    grid-template-columns: 40px 1fr;
+    align-items: start;
+    padding: 18px 16px;
   }
 
   .booking-service-option em {
     grid-column: 2;
+    margin-top: 8px;
   }
 
   .package-option {
     grid-template-columns: 1fr;
+    min-height: 0;
+    gap: 12px;
+    padding: 14px;
   }
 
   .package-option-image {
-    aspect-ratio: 1.7;
+    aspect-ratio: 1.55;
     min-height: 0;
+  }
+
+  .package-option > div {
+    padding-right: 0;
+  }
+
+  .package-option .mini-pill {
+    top: 18px;
+    right: 18px;
+  }
+
+  .car-size-option {
+    min-height: 96px;
+    padding: 18px;
+  }
+
+  .slot-chip {
+    min-height: 58px;
+    padding: 0 14px;
+    font-size: 1rem;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  .summary-row {
+    display: grid;
+    gap: 4px;
+    align-items: start;
+  }
+
+  .summary-row strong {
+    text-align: left;
   }
 
   .modal-summary div {
