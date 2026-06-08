@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
       navBook: 'Book Now',
       heroEyebrow: 'Premium Cleaning. Anytime. Anywhere.',
       heroTitle: 'Car detailing with home cleaning power.',
-      heroText: 'GoClean Lux brings a polished finish to cars, sofas, homes, gardens and offices with mobile cleaning services tailored for Luxembourg.',
+      heroText: 'GoClean Lux brings professional mobile detailing to your home, office, or wherever your car is parked.',
       heroQuote: 'Get a free quote',
       heroServices: 'View services',
       heroClients: 'satisfied clients',
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
       servicesEyebrow: 'Services built to impress',
       servicesTitle: 'Complete cleaning that feels fresh, fast, and focused.',
       serviceCar: 'Car Cleaning',
-      serviceCarText: 'Inside-out detailing, paint care, upholstery refresh and full exterior shine for every vehicle.',
+      serviceCarText: 'Professional mobile car detailing at your home, office, or parking spot. We come to you with the equipment.',
       serviceHome: 'Home & Office',
       serviceHomeText: 'Deep clean packages for kitchens, bathrooms, living areas and workspace surfaces with safe, premium products.',
       serviceSofa: 'Sofa & Upholstery',
@@ -79,9 +79,10 @@ document.addEventListener('DOMContentLoaded', function () {
       from79: 'from €79',
       from99: 'from €99',
       from119: 'from €119',
+      from299: 'from €299',
       packagesEyebrow: 'Car detailing packages',
       packagesTitle: 'Pick the level of care your car needs.',
-      packagesText: 'Launch offer prices start from the flyer price and may vary depending on vehicle size, condition, stain level, and extra requests.',
+      packagesText: 'Choose the car service you need, tell us where the car is, and we come to you. Launch prices may vary depending on vehicle size, condition, stain level, and extra requests.',
       pkgExpress: 'Express Exterior Wash',
       pkgExpressText: 'Pre-rinse, snow foam, hand wash, and wheel cleaning for a fast exterior reset.',
       pkgExpressShort: 'Pre-rinse, snow foam, hand wash',
@@ -94,6 +95,9 @@ document.addEventListener('DOMContentLoaded', function () {
       pkgDeep: 'Deep Interior Detailing',
       pkgDeepText: 'Deep vacuuming, steam cleaning, seat shampoo, and odor treatment.',
       pkgDeepShort: 'Steam, shampoo, odor treatment',
+      pkgVip: 'Showroom VIP',
+      pkgVipText: 'Premium exterior polishing and showroom preparation for a deeper gloss and refined finish.',
+      pkgVipShort: 'Exterior polishing and gloss finish',
       popular: 'Popular',
       trustMobile: 'Mobile team',
       trustMobileText: 'We bring equipment to you',
@@ -115,42 +119,45 @@ document.addEventListener('DOMContentLoaded', function () {
       review2: '"They cleaned our living room sofa and it looked amazing. Friendly service and no fuss booking."',
       review3: '"Excellent garden patio cleaning. The terrace was spotless and the crew left everything tidy."',
       bookingEyebrow: 'Ready for a spotless finish?',
-      bookingTitle: 'Book your GoClean Lux session today.',
-      bookingText: 'Pick a service, choose a date and time, then send your request instantly.',
+      bookingTitle: 'Book professional detailing at your home or office.',
+      bookingText: 'We come to you wherever you are. Choose your package, vehicle size, address, date and arrival window.',
+      promiseHome: 'At home',
+      promiseOffice: 'At the office',
+      promiseAnywhere: 'Anywhere you are',
       step1: 'Step 1',
       step2: 'Step 2',
       step3: 'Step 3',
       step4: 'Step 4',
       step5: 'Step 5',
-      stepServiceTitle: 'Choose the service',
-      stepServiceText: 'Start with the type of cleaning you need.',
-      chooseService: 'Choose service',
+      stepServiceTitle: 'What do you need cleaned?',
+      stepServiceText: 'Choose car detailing for your vehicle, or another mobile cleaning service.',
+      chooseService: 'Service',
       bookingCarSmall: 'Mobile detailing packages',
       bookingHomeSmall: 'Deep cleaning for interiors',
       bookingSofaSmall: 'Steam and fabric refresh',
       bookingGardenSmall: 'Terraces and exterior care',
-      stepPackageTitle: 'Choose the car package',
-      stepPackageText: 'Pick the level of detail. The image and description explain what each package is for.',
-      choosePackage: 'Choose car package',
-      stepVehicleTitle: 'Choose the vehicle size',
-      stepVehicleText: 'This helps calculate the estimate for your selected package.',
+      stepPackageTitle: 'Which car package?',
+      stepPackageText: 'Pick exactly what your car needs. Each package shows the main work included and the launch price.',
+      choosePackage: 'Car package',
+      stepVehicleTitle: 'What size is your vehicle?',
+      stepVehicleText: 'This helps us prepare the right time, products and equipment for your car.',
       vehicleSize: 'Vehicle size',
       cityCar: 'City car',
       berlina: 'Berlina',
       vehicleNote: 'Choose the size that best fits your vehicle. Final price may vary based on condition and extra service needs.',
-      stepDateTitle: 'Choose date and time',
+      stepDateTitle: 'When should we come?',
       stepDateText: 'Select your preferred day and one available 3-hour arrival window.',
       preferredDate: 'Preferred date',
       availableSlots: 'Available 3-hour slots',
-      stepDetailsTitle: 'Your contact details',
-      stepDetailsText: 'We use these details to confirm your booking.',
+      stepDetailsTitle: 'Where should we come?',
+      stepDetailsText: 'Add your contact details and the address where we should arrive.',
       fullName: 'Full name',
       phoneNumber: 'Phone number',
       emailAddress: 'Email address',
-      serviceAddress: 'Service address',
+      serviceAddress: 'Address where we come',
       notes: 'Notes',
       requestBooking: 'Request booking',
-      formNote: 'We’ll confirm your booking and send a summary to your email after you submit.',
+      formNote: 'After you submit, your full request is sent to GoClean Lux and we confirm the appointment with you.',
       namePlaceholder: 'Your name',
       addressPlaceholder: 'Street, city, Luxembourg',
       notesPlaceholder: 'Tell us anything useful: car model, access details, stains, parking...',
@@ -166,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
       selectDate: 'Select a date',
       pickSlot: 'Pick a slot',
       notApplicable: 'N/A',
-      summaryCopy: 'All bookings are offered within a 9:00–19:00 window. Choose your preferred 3-hour arrival slot.',
+      summaryCopy: 'We arrive at your home, office, or chosen address with the detailing equipment. Choose your preferred 3-hour arrival window.',
       assurance1: 'Instant request',
       assurance1Text: 'Your details are sent to GoClean Lux.',
       assurance2: 'Manual confirmation',
@@ -194,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
       navBook: 'Réserver',
       heroEyebrow: 'Nettoyage premium. Partout. À tout moment.',
       heroTitle: 'Detailing auto avec la puissance du nettoyage à domicile.',
-      heroText: 'GoClean Lux apporte une finition impeccable aux voitures, canapés, maisons, jardins et bureaux avec des services mobiles adaptés au Luxembourg.',
+      heroText: 'GoClean Lux apporte un detailing mobile professionnel à votre domicile, au bureau ou là où votre voiture est stationnée.',
       heroQuote: 'Demander un devis',
       heroServices: 'Voir les services',
       heroClients: 'clients satisfaits',
@@ -212,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
       servicesEyebrow: 'Des services qui impressionnent',
       servicesTitle: 'Un nettoyage complet, frais, rapide et précis.',
       serviceCar: 'Nettoyage voiture',
-      serviceCarText: 'Detailing intérieur et extérieur, soin de peinture, textiles et finition brillante pour chaque véhicule.',
+      serviceCarText: 'Detailing mobile professionnel à domicile, au bureau ou sur votre parking. Nous venons à vous avec le matériel.',
       serviceHome: 'Maison & Bureau',
       serviceHomeText: 'Formules de nettoyage en profondeur pour cuisines, salles de bain, espaces de vie et surfaces de travail.',
       serviceSofa: 'Canapé & Tissus',
@@ -225,9 +232,10 @@ document.addEventListener('DOMContentLoaded', function () {
       from79: 'dès €79',
       from99: 'dès €99',
       from119: 'dès €119',
+      from299: 'dès €299',
       packagesEyebrow: 'Forfaits detailing voiture',
       packagesTitle: 'Choisissez le niveau de soin adapté à votre voiture.',
-      packagesText: 'Les prix de lancement commencent au prix indiqué sur le flyer et peuvent varier selon la taille du véhicule, son état, les taches et les demandes supplémentaires.',
+      packagesText: 'Choisissez le service auto dont vous avez besoin, indiquez où se trouve la voiture, et nous venons à vous. Les prix de lancement peuvent varier selon la taille, l’état, les taches et les demandes supplémentaires.',
       pkgExpress: 'Lavage extérieur express',
       pkgExpressText: 'Pré-rinçage, snow foam, lavage à la main et nettoyage des jantes pour un extérieur propre rapidement.',
       pkgExpressShort: 'Pré-rinçage, snow foam, lavage main',
@@ -240,6 +248,9 @@ document.addEventListener('DOMContentLoaded', function () {
       pkgDeep: 'Detailing intérieur profond',
       pkgDeepText: 'Aspiration profonde, nettoyage vapeur, shampoing des sièges et traitement des odeurs.',
       pkgDeepShort: 'Vapeur, shampoing, odeurs',
+      pkgVip: 'Showroom VIP',
+      pkgVipText: 'Polissage extérieur premium et préparation showroom pour une brillance plus profonde et une finition soignée.',
+      pkgVipShort: 'Polissage extérieur et finition brillante',
       popular: 'Populaire',
       trustMobile: 'Équipe mobile',
       trustMobileText: 'Nous apportons le matériel',
@@ -261,42 +272,45 @@ document.addEventListener('DOMContentLoaded', function () {
       review2: '"Ils ont nettoyé notre canapé du salon et le résultat était superbe. Service sympathique et réservation simple."',
       review3: '"Excellent nettoyage de terrasse. Tout était impeccable et l’équipe a laissé l’espace propre."',
       bookingEyebrow: 'Prêt pour une finition impeccable ?',
-      bookingTitle: 'Réservez votre session GoClean Lux.',
-      bookingText: 'Choisissez un service, une date et un créneau, puis envoyez votre demande instantanément.',
+      bookingTitle: 'Réservez un detailing professionnel à domicile ou au bureau.',
+      bookingText: 'Nous venons à vous où que vous soyez. Choisissez le forfait, la taille du véhicule, l’adresse, la date et le créneau.',
+      promiseHome: 'À domicile',
+      promiseOffice: 'Au bureau',
+      promiseAnywhere: 'Où que vous soyez',
       step1: 'Étape 1',
       step2: 'Étape 2',
       step3: 'Étape 3',
       step4: 'Étape 4',
       step5: 'Étape 5',
-      stepServiceTitle: 'Choisissez le service',
-      stepServiceText: 'Commencez par le type de nettoyage dont vous avez besoin.',
-      chooseService: 'Choisir le service',
+      stepServiceTitle: 'Que souhaitez-vous nettoyer ?',
+      stepServiceText: 'Choisissez le detailing voiture ou un autre service de nettoyage mobile.',
+      chooseService: 'Service',
       bookingCarSmall: 'Forfaits detailing mobile',
       bookingHomeSmall: 'Nettoyage intérieur en profondeur',
       bookingSofaSmall: 'Vapeur et rafraîchissement textile',
       bookingGardenSmall: 'Terrasses et extérieur',
-      stepPackageTitle: 'Choisissez le forfait voiture',
-      stepPackageText: 'Choisissez le niveau de détail. L’image et la description expliquent chaque forfait.',
-      choosePackage: 'Choisir le forfait voiture',
-      stepVehicleTitle: 'Choisissez la taille du véhicule',
-      stepVehicleText: 'Cela permet de calculer l’estimation du forfait choisi.',
+      stepPackageTitle: 'Quel forfait voiture ?',
+      stepPackageText: 'Choisissez exactement ce dont votre voiture a besoin. Chaque forfait montre le travail inclus et le prix de lancement.',
+      choosePackage: 'Forfait voiture',
+      stepVehicleTitle: 'Quelle est la taille du véhicule ?',
+      stepVehicleText: 'Cela nous aide à préparer le bon temps, les bons produits et le bon matériel pour votre voiture.',
       vehicleSize: 'Taille du véhicule',
       cityCar: 'Citadine',
       berlina: 'Berline',
       vehicleNote: 'Choisissez la taille la plus proche de votre véhicule. Le prix final peut varier selon l’état et les demandes supplémentaires.',
-      stepDateTitle: 'Choisissez la date et l’heure',
+      stepDateTitle: 'Quand devons-nous venir ?',
       stepDateText: 'Sélectionnez votre jour préféré et un créneau disponible de 3 heures.',
       preferredDate: 'Date souhaitée',
       availableSlots: 'Créneaux disponibles de 3 heures',
-      stepDetailsTitle: 'Vos coordonnées',
-      stepDetailsText: 'Nous utilisons ces informations pour confirmer votre réservation.',
+      stepDetailsTitle: 'Où devons-nous venir ?',
+      stepDetailsText: 'Ajoutez vos coordonnées et l’adresse où nous devons arriver.',
       fullName: 'Nom complet',
       phoneNumber: 'Numéro de téléphone',
       emailAddress: 'Adresse e-mail',
-      serviceAddress: 'Adresse du service',
+      serviceAddress: 'Adresse où nous venons',
       notes: 'Notes',
       requestBooking: 'Envoyer la demande',
-      formNote: 'Nous confirmerons votre réservation et vous enverrons un résumé après l’envoi.',
+      formNote: 'Après l’envoi, votre demande complète est transmise à GoClean Lux et nous confirmons le rendez-vous avec vous.',
       namePlaceholder: 'Votre nom',
       addressPlaceholder: 'Rue, ville, Luxembourg',
       notesPlaceholder: 'Informations utiles : modèle de voiture, accès, taches, parking...',
@@ -312,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function () {
       selectDate: 'Choisir une date',
       pickSlot: 'Choisir un créneau',
       notApplicable: 'N/A',
-      summaryCopy: 'Les réservations sont proposées entre 9:00 et 19:00. Choisissez votre créneau d’arrivée de 3 heures.',
+      summaryCopy: 'Nous arrivons à votre domicile, au bureau ou à l’adresse choisie avec le matériel de detailing. Choisissez votre créneau d’arrivée de 3 heures.',
       assurance1: 'Demande instantanée',
       assurance1Text: 'Vos informations sont envoyées à GoClean Lux.',
       assurance2: 'Confirmation manuelle',
@@ -347,6 +361,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'Interior Refresh': t('pkgInterior'),
       'Complete Clean': t('pkgFull'),
       'Deep Interior Detailing': t('pkgDeep'),
+      'Showroom VIP': t('pkgVip'),
     }[value] || value;
   }
 
@@ -402,6 +417,12 @@ document.addEventListener('DOMContentLoaded', function () {
       suv: { amount: 99, label: 'from €99' },
       xl: { amount: 99, label: 'from €99' },
     },
+    'Showroom VIP': {
+      cityCar: { amount: 299, label: 'from €299' },
+      berlina: { amount: 299, label: 'from €299' },
+      suv: { amount: 299, label: 'from €299' },
+      xl: { amount: 299, label: 'from €299' },
+    },
   };
 
   const serviceDetails = {
@@ -451,22 +472,31 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   const revealElements = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          if (entry.target.querySelector('[data-count]')) {
-            animateCounters();
-          }
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.2 }
-  );
+  document.documentElement.classList.add('reveal-ready');
+  revealElements.forEach((el) => el.classList.add('visible'));
 
-  revealElements.forEach((el) => observer.observe(el));
+  if ('IntersectionObserver' in window) {
+    revealElements.forEach((el) => el.classList.remove('visible'));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            if (entry.target.querySelector('[data-count]')) {
+              animateCounters();
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.05 }
+    );
+
+    revealElements.forEach((el) => observer.observe(el));
+    window.setTimeout(() => {
+      revealElements.forEach((el) => el.classList.add('visible'));
+    }, 1200);
+  }
 
   function animateCounters() {
     counters.forEach((counter) => {

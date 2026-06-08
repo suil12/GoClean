@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=20260608-booking-flow" />
   <link rel="icon" type="image/png" href="img/logo_white.png" />
 </head>
 <body>
@@ -151,11 +151,19 @@
               </div>
             </article>
             <article class="package-showcase-card">
-              <img src="img/package_deep_clean_real.png" alt="Deep Interior Detailing illustration" />
+              <img src="img/deep_clean.png" alt="Deep Interior Detailing illustration" />
               <div>
                 <span data-i18n="from99">from €99</span>
                 <h3 data-i18n="pkgDeep">Deep Interior Detailing</h3>
                 <p data-i18n="pkgDeepText">Deep vacuuming, steam cleaning, seat shampoo, and odor treatment.</p>
+              </div>
+            </article>
+            <article class="package-showcase-card">
+              <img src="img/package_deep_clean_real.png" alt="Showroom VIP polishing illustration" />
+              <div>
+                <span data-i18n="from299">from €299</span>
+                <h3 data-i18n="pkgVip">Showroom VIP</h3>
+                <p data-i18n="pkgVipText">Premium exterior polishing and showroom preparation for a deeper gloss and refined finish.</p>
               </div>
             </article>
           </div>
@@ -216,19 +224,24 @@
       <section class="booking-panel" id="contact">
         <div class="section-heading">
           <p class="eyebrow accent" data-i18n="bookingEyebrow">Ready for a spotless finish?</p>
-          <h2 data-i18n="bookingTitle">Book your GoClean Lux session today.</h2>
-          <p data-i18n="bookingText">Pick a service, choose a date and time, then send your request instantly.</p>
+          <h2 data-i18n="bookingTitle">Book professional detailing at your home or office.</h2>
+          <p data-i18n="bookingText">We come to you wherever you are. Choose your package, vehicle size, address, date and arrival window.</p>
+          <div class="booking-promise" aria-label="Mobile detailing promise">
+            <span data-i18n="promiseHome">At home</span>
+            <span data-i18n="promiseOffice">At the office</span>
+            <span data-i18n="promiseAnywhere">Anywhere you are</span>
+          </div>
         </div>
         <div class="booking-grid">
           <div class="booking-form reveal">
             <form id="bookingForm">
               <div class="booking-step-title form-row-wide">
                 <span data-i18n="step1">Step 1</span>
-                <h3 data-i18n="stepServiceTitle">Choose the service</h3>
-                <p data-i18n="stepServiceText">Start with the type of cleaning you need.</p>
+                <h3 data-i18n="stepServiceTitle">What do you need cleaned?</h3>
+                <p data-i18n="stepServiceText">Choose car detailing for your vehicle, or another mobile cleaning service.</p>
               </div>
               <div class="form-row form-row-wide">
-                <label for="serviceSelect" data-i18n="chooseService">Choose service</label>
+                <label for="serviceSelect" data-i18n="chooseService">Service</label>
                 <div class="booking-service-grid" id="bookingServiceOptions">
                   <button type="button" class="booking-service-option selected" data-service="Car Cleaning">
                     <span class="service-dot car"></span>
@@ -260,11 +273,11 @@
               </div>
               <div class="booking-step-title form-row-wide car-details-row" id="packageStepTitle" style="display:none;">
                 <span data-i18n="step2">Step 2</span>
-                <h3 data-i18n="stepPackageTitle">Choose the car package</h3>
-                <p data-i18n="stepPackageText">Pick the level of detail. The image and description explain what each package is for.</p>
+                <h3 data-i18n="stepPackageTitle">Which car package?</h3>
+                <p data-i18n="stepPackageText">Pick exactly what your car needs. Each package shows the main work included and the launch price.</p>
               </div>
               <div class="form-row form-row-wide car-details-row" id="serviceTypeRow" style="display:none;">
-                <label data-i18n="choosePackage">Choose car package</label>
+                <label data-i18n="choosePackage">Car package</label>
                 <div class="option-grid" id="packageOptions">
                   <button type="button" class="option-button package-option" data-package="Express Exterior Wash">
                     <img class="package-option-image" src="img/package_express_real.png" alt="Express Exterior Wash" />
@@ -292,19 +305,27 @@
                     </div>
                   </button>
                   <button type="button" class="option-button package-option" data-package="Deep Interior Detailing">
-                    <img class="package-option-image" src="img/package_deep_clean_real.png" alt="Deep Interior Detailing" />
+                    <img class="package-option-image" src="img/deep_clean.png" alt="Deep Interior Detailing" />
                     <div>
                       <strong data-i18n="pkgDeep">Deep Interior Detailing</strong>
                       <span data-i18n="pkgDeepShort">Steam, shampoo, odor treatment</span>
                       <em data-i18n="from99">from €99</em>
                     </div>
                   </button>
+                  <button type="button" class="option-button package-option" data-package="Showroom VIP">
+                    <img class="package-option-image" src="img/package_deep_clean_real.png" alt="Showroom VIP polishing" />
+                    <div>
+                      <strong data-i18n="pkgVip">Showroom VIP</strong>
+                      <span data-i18n="pkgVipShort">Exterior polishing and gloss finish</span>
+                      <em data-i18n="from299">from €299</em>
+                    </div>
+                  </button>
                 </div>
               </div>
               <div class="booking-step-title form-row-wide car-details-row" id="vehicleStepTitle" style="display:none;">
                 <span data-i18n="step3">Step 3</span>
-                <h3 data-i18n="stepVehicleTitle">Choose the vehicle size</h3>
-                <p data-i18n="stepVehicleText">This helps calculate the estimate for your selected package.</p>
+                <h3 data-i18n="stepVehicleTitle">What size is your vehicle?</h3>
+                <p data-i18n="stepVehicleText">This helps us prepare the right time, products and equipment for your car.</p>
               </div>
               <div class="form-row form-row-wide car-details-row" id="carSizeRow" style="display:none;">
                 <label data-i18n="vehicleSize">Vehicle size</label>
@@ -330,7 +351,7 @@
               </div>
               <div class="booking-step-title form-row-wide">
                 <span data-i18n="step4">Step 4</span>
-                <h3 data-i18n="stepDateTitle">Choose date and time</h3>
+                <h3 data-i18n="stepDateTitle">When should we come?</h3>
                 <p data-i18n="stepDateText">Select your preferred day and one available 3-hour arrival window.</p>
               </div>
               <div class="form-row">
@@ -346,8 +367,8 @@
               </div>
               <div class="booking-step-title form-row-wide">
                 <span data-i18n="step5">Step 5</span>
-                <h3 data-i18n="stepDetailsTitle">Your contact details</h3>
-                <p data-i18n="stepDetailsText">We use these details to confirm your booking.</p>
+                <h3 data-i18n="stepDetailsTitle">Where should we come?</h3>
+                <p data-i18n="stepDetailsText">Add your contact details and the address where we should arrive.</p>
               </div>
               <div class="form-row">
                 <label for="nameInput" data-i18n="fullName">Full name</label>
@@ -362,7 +383,7 @@
                 <input id="emailInput" type="email" placeholder="contact@example.com" required />
               </div>
               <div class="form-row form-row-wide">
-                <label for="addressInput" data-i18n="serviceAddress">Service address</label>
+                <label for="addressInput" data-i18n="serviceAddress">Address where we come</label>
                 <input id="addressInput" type="text" placeholder="Street, city, Luxembourg" data-placeholder-key="addressPlaceholder" required />
               </div>
               <div class="form-row form-row-wide">
@@ -370,7 +391,7 @@
                 <textarea id="notesInput" placeholder="Tell us anything useful: car model, access details, stains, parking..." data-placeholder-key="notesPlaceholder" rows="4"></textarea>
               </div>
               <button type="submit" class="button-primary" data-i18n="requestBooking">Request booking</button>
-              <p class="form-note" data-i18n="formNote">We’ll confirm your booking and send a summary to your email after you submit.</p>
+              <p class="form-note" data-i18n="formNote">After you submit, your full request is sent to GoClean Lux and we confirm the appointment with you.</p>
               <div id="bookingMessage" class="booking-message"></div>
             </form>
           </div>
@@ -418,6 +439,6 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=20260608-booking-flow"></script>
 </body>
 </html>

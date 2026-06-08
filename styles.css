@@ -509,6 +509,27 @@ a {
   line-height: 1.7;
 }
 
+.booking-promise {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.booking-promise span {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(33, 183, 170, 0.2);
+  border-radius: var(--radius);
+  padding: 0 14px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 10px 24px rgba(16, 34, 53, 0.06);
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
 .service-grid,
 .process-grid,
 .testimonial-grid,
@@ -610,7 +631,7 @@ a {
 
 .package-showcase-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 14px;
 }
 
@@ -1218,9 +1239,14 @@ textarea {
 }
 
 .reveal {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+
+.reveal-ready .reveal {
   opacity: 0;
   transform: translateY(22px);
-  transition: opacity 0.75s ease, transform 0.75s ease;
 }
 
 .reveal.visible {
@@ -1339,6 +1365,15 @@ textarea {
   .booking-form,
   .booking-summary {
     padding: 18px;
+  }
+
+  .booking-promise {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .booking-promise span {
+    justify-content: center;
   }
 
   .booking-step-title {
