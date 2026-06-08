@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260608-package-images" />
+  <link rel="stylesheet" href="styles.css?v=20260608-car-booking" />
   <link rel="icon" type="image/png" href="img/logo_white.png" />
 </head>
 <body>
@@ -237,39 +237,25 @@
             <form id="bookingForm">
               <div class="booking-step-title form-row-wide">
                 <span data-i18n="step1">Step 1</span>
-                <h3 data-i18n="stepServiceTitle">What do you need cleaned?</h3>
-                <p data-i18n="stepServiceText">Choose car detailing for your vehicle, or another mobile cleaning service.</p>
+                <h3 data-i18n="stepServiceTitle">Your mobile car detailing</h3>
+                <p data-i18n="stepServiceText">Choose your car package below. We bring the professional equipment to your home, office, or parking spot.</p>
               </div>
               <div class="form-row form-row-wide">
-                <label for="serviceSelect" data-i18n="chooseService">Service</label>
-                <div class="booking-service-grid" id="bookingServiceOptions">
-                  <button type="button" class="booking-service-option selected" data-service="Car Cleaning">
+                <input id="serviceSelect" type="hidden" value="Car Cleaning" />
+                <div class="booking-detailing-card">
+                  <div>
                     <span class="service-dot car"></span>
-                    <span><strong data-i18n="serviceCar">Car Cleaning</strong><small data-i18n="bookingCarSmall">Mobile detailing packages</small></span>
-                    <em data-i18n="from39">from €39</em>
-                  </button>
-                  <button type="button" class="booking-service-option" data-service="Home & Office">
-                    <span class="service-dot home"></span>
-                    <span><strong data-i18n="serviceHome">Home & Office</strong><small data-i18n="bookingHomeSmall">Deep cleaning for interiors</small></span>
-                    <em data-i18n="from119">from €119</em>
-                  </button>
-                  <button type="button" class="booking-service-option" data-service="Sofa & Upholstery">
-                    <span class="service-dot sofa"></span>
-                    <span><strong data-i18n="serviceSofa">Sofa & Upholstery</strong><small data-i18n="bookingSofaSmall">Steam and fabric refresh</small></span>
-                    <em data-i18n="from59">from €59</em>
-                  </button>
-                  <button type="button" class="booking-service-option" data-service="Garden & Outdoor">
-                    <span class="service-dot garden"></span>
-                    <span><strong data-i18n="serviceGarden">Garden & Outdoor</strong><small data-i18n="bookingGardenSmall">Terraces and exterior care</small></span>
-                    <em data-i18n="from99">from €99</em>
-                  </button>
+                    <div>
+                      <strong data-i18n="bookingDetailingTitle">Professional car detailing</strong>
+                      <p data-i18n="bookingDetailingText">Interior refresh, deep interior cleaning, exterior wash, and showroom polishing packages.</p>
+                    </div>
+                  </div>
+                  <ul>
+                    <li data-i18n="bookingDetailingPoint1">We come to your address</li>
+                    <li data-i18n="bookingDetailingPoint2">Launch offers from €39</li>
+                    <li data-i18n="bookingDetailingPoint3">Confirmation sent to GoClean Lux</li>
+                  </ul>
                 </div>
-                <select id="serviceSelect" class="sr-only" required aria-label="Selected service">
-                  <option value="Car Cleaning">Car Cleaning</option>
-                  <option value="Home & Office">Home & Office</option>
-                  <option value="Sofa & Upholstery">Sofa & Upholstery</option>
-                  <option value="Garden & Outdoor">Garden & Outdoor</option>
-                </select>
               </div>
               <div class="booking-step-title form-row-wide car-details-row" id="packageStepTitle" style="display:none;">
                 <span data-i18n="step2">Step 2</span>
@@ -439,6 +425,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=20260608-package-images"></script>
+  <script src="script.js?v=20260608-car-booking"></script>
 </body>
 </html>

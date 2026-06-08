@@ -135,8 +135,8 @@ function formatBookingEmailText(booking) {
     'New GoClean Lux booking request',
     '',
     'BOOKING',
-    `Service: ${booking.service || 'N/A'}`,
-    `Package: ${booking.serviceType || 'N/A'}`,
+    `Service booked: ${booking.service || 'N/A'}`,
+    `Package / type of detailing: ${booking.serviceType || 'N/A'}`,
     `Vehicle size: ${booking.carSize || 'N/A'}`,
     `Date: ${booking.date || 'N/A'}`,
     `Time: ${booking.time || 'N/A'}`,
@@ -153,6 +153,26 @@ function formatBookingEmailText(booking) {
     'NOTES',
     booking.notes || 'No notes provided',
   ].join('\n');
+}
+
+function bookingResponseSummary(booking) {
+  return {
+    serviceBooked: booking.service,
+    service: booking.service,
+    package: booking.serviceType,
+    serviceType: booking.serviceType,
+    vehicleSize: booking.carSize,
+    carSize: booking.carSize,
+    date: booking.date,
+    time: booking.time,
+    estimate: booking.estimate,
+    customer: {
+      name: booking.name,
+      phone: booking.phone,
+      email: booking.email,
+      address: booking.address,
+    },
+  };
 }
 
 function readSmtpResponse(socket) {
@@ -323,10 +343,12 @@ async function handleBooking(req, res) {
       submittedAt: new Date().toISOString(),
     };
 
-    const requiredFields = ['service', 'date', 'time', 'name', 'phone', 'email', 'address'];
-    if (booking.service === 'Car Cleaning') {
-      requiredFields.push('serviceType', 'carSize');
+    if (booking.service !== 'Car Cleaning') {
+      sendJson(res, 400, { message: 'Only car detailing bookings are available online.' });
+      return;
     }
+
+    const requiredFields = ['service', 'serviceType', 'carSize', 'date', 'time', 'name', 'phone', 'email', 'address'];
 
     if (requiredFields.some((field) => !booking[field])) {
       sendJson(res, 400, { message: 'Please complete all required booking fields.' });
@@ -346,6 +368,7 @@ async function handleBooking(req, res) {
       sendJson(res, 200, {
         mailSent: false,
         message: 'Booking received, but SMTP email delivery is not configured yet.',
+        booking: bookingResponseSummary(booking),
       });
       return;
     }
@@ -353,7 +376,11 @@ async function handleBooking(req, res) {
     await sendBookingEmail(booking);
     bookings.push(booking);
     saveBookings(bookings);
-    sendJson(res, 200, { mailSent: true, message: 'Booking request sent.' });
+    sendJson(res, 200, {
+      mailSent: true,
+      message: 'Booking request sent.',
+      booking: bookingResponseSummary(booking),
+    });
   } catch (error) {
     console.error('Booking request failed:', error);
     sendJson(res, 500, { message: 'The booking could not be emailed. Please try again or contact us directly.' });

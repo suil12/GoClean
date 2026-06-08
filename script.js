@@ -129,10 +129,15 @@ document.addEventListener('DOMContentLoaded', function () {
       step3: 'Step 3',
       step4: 'Step 4',
       step5: 'Step 5',
-      stepServiceTitle: 'What do you need cleaned?',
-      stepServiceText: 'Choose car detailing for your vehicle, or another mobile cleaning service.',
+      stepServiceTitle: 'Your mobile car detailing',
+      stepServiceText: 'Choose your car package below. We bring the professional equipment to your home, office, or parking spot.',
       chooseService: 'Service',
       bookingCarSmall: 'Mobile detailing packages',
+      bookingDetailingTitle: 'Professional car detailing',
+      bookingDetailingText: 'Interior refresh, deep interior cleaning, exterior wash, and showroom polishing packages.',
+      bookingDetailingPoint1: 'We come to your address',
+      bookingDetailingPoint2: 'Launch offers from €39',
+      bookingDetailingPoint3: 'Confirmation sent to GoClean Lux',
       bookingHomeSmall: 'Deep cleaning for interiors',
       bookingSofaSmall: 'Steam and fabric refresh',
       bookingGardenSmall: 'Terraces and exterior care',
@@ -282,10 +287,15 @@ document.addEventListener('DOMContentLoaded', function () {
       step3: 'Étape 3',
       step4: 'Étape 4',
       step5: 'Étape 5',
-      stepServiceTitle: 'Que souhaitez-vous nettoyer ?',
-      stepServiceText: 'Choisissez le detailing voiture ou un autre service de nettoyage mobile.',
+      stepServiceTitle: 'Votre detailing auto mobile',
+      stepServiceText: 'Choisissez votre forfait voiture ci-dessous. Nous apportons le matériel professionnel à domicile, au bureau ou sur votre parking.',
       chooseService: 'Service',
       bookingCarSmall: 'Forfaits detailing mobile',
+      bookingDetailingTitle: 'Detailing voiture professionnel',
+      bookingDetailingText: 'Forfaits rafraîchissement intérieur, nettoyage intérieur profond, lavage extérieur et polissage showroom.',
+      bookingDetailingPoint1: 'Nous venons à votre adresse',
+      bookingDetailingPoint2: 'Offres lancement dès €39',
+      bookingDetailingPoint3: 'Confirmation envoyée à GoClean Lux',
       bookingHomeSmall: 'Nettoyage intérieur en profondeur',
       bookingSofaSmall: 'Vapeur et rafraîchissement textile',
       bookingGardenSmall: 'Terrasses et extérieur',
@@ -636,11 +646,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function updateBookingFieldsVisibility() {
-    const carDetailsVisible = serviceSelect.value === 'Car Cleaning';
-    packageStepTitle.style.display = carDetailsVisible ? '' : 'none';
-    serviceTypeRow.style.display = carDetailsVisible ? '' : 'none';
-    vehicleStepTitle.style.display = carDetailsVisible ? '' : 'none';
-    carSizeRow.style.display = carDetailsVisible ? '' : 'none';
+    serviceSelect.value = 'Car Cleaning';
+    packageStepTitle.style.display = '';
+    serviceTypeRow.style.display = '';
+    vehicleStepTitle.style.display = '';
+    carSizeRow.style.display = '';
   }
 
   function updateSummary() {
@@ -656,7 +666,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function chooseService(card) {
-    serviceSelect.value = card.dataset.service;
+    serviceSelect.value = 'Car Cleaning';
     updateBookingFieldsVisibility();
     selectedSlot = null;
     updateSummary();
@@ -814,7 +824,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       bookingMessage.textContent = result.mailSent ? t('bookingSuccessEmail') : t('bookingSuccessSaved');
       bookingMessage.className = 'booking-message success';
-      showBookingModal(booking, result.mailSent);
+      showBookingModal(result.booking || booking, result.mailSent);
       bookingForm.reset();
       setTodayMinimum();
       selectedSlot = null;
