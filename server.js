@@ -175,6 +175,36 @@ function bookingResponseSummary(booking) {
   };
 }
 
+function publicEmailError(error) {
+  const message = String(error?.message || '');
+
+  if (/timed out|ETIMEDOUT/i.test(message)) {
+    return 'Email server timeout. The deployment host may be blocking SMTP port 587.';
+  }
+
+  if (/ECONNREFUSED|ENETUNREACH|EHOSTUNREACH|ECONNRESET|socket hang up/i.test(message)) {
+    return 'Could not connect to the email server from the deployment host.';
+  }
+
+  if (/AUTH|535|authentication|invalid login|password/i.test(message)) {
+    return 'Email authentication failed. Check SMTP_USER and SMTP_PASS.';
+  }
+
+  if (/MAIL FROM|sender|from/i.test(message)) {
+    return 'The email sender address was rejected. Check SMTP_FROM.';
+  }
+
+  if (/RCPT TO|recipient/i.test(message)) {
+    return 'The booking receiver email was rejected. Check BOOKING_RECEIVER_EMAIL.';
+  }
+
+  if (/Resend email failed/i.test(message)) {
+    return message;
+  }
+
+  return 'Email delivery failed on the server.';
+}
+
 function readSmtpResponse(socket) {
   return new Promise((resolve, reject) => {
     let buffer = '';
@@ -415,7 +445,10 @@ async function handleBooking(req, res) {
     });
   } catch (error) {
     console.error('Booking request failed:', error);
-    sendJson(res, 500, { message: 'The booking could not be emailed. Please try again or contact us directly.' });
+    sendJson(res, 500, {
+      message: 'The booking could not be emailed. Please contact us on WhatsApp at +352 661 920 598.',
+      emailError: publicEmailError(error),
+    });
   }
 }
 

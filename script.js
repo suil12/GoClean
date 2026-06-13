@@ -196,6 +196,7 @@ document.addEventListener('DOMContentLoaded', function () {
       sending: 'Sending request...',
       bookingSuccessEmail: 'Booking request sent. We will confirm your appointment shortly.',
       bookingSuccessSaved: 'Booking request captured. Email delivery still needs to be configured.',
+      bookingSendFallback: 'Please send your booking on WhatsApp: +352 661 920 598.',
     },
     fr: {
       brandSubtext: 'Nettoyage mobile & detailing',
@@ -354,6 +355,7 @@ document.addEventListener('DOMContentLoaded', function () {
       sending: 'Envoi de la demande...',
       bookingSuccessEmail: 'Demande de réservation envoyée. Nous confirmerons votre rendez-vous rapidement.',
       bookingSuccessSaved: 'Demande de réservation enregistrée. L’envoi e-mail doit encore être configuré.',
+      bookingSendFallback: 'Veuillez envoyer votre réservation sur WhatsApp : +352 661 920 598.',
     },
   };
 
@@ -819,7 +821,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message || 'Could not send booking request.');
+        const details = result.emailError ? ` ${result.emailError}` : '';
+        throw new Error(`${result.message || 'Could not send booking request.'}${details}`);
       }
 
       bookingMessage.textContent = result.mailSent ? t('bookingSuccessEmail') : t('bookingSuccessSaved');
@@ -831,7 +834,7 @@ document.addEventListener('DOMContentLoaded', function () {
       updateSummary();
       renderSlots();
     } catch (error) {
-      bookingMessage.textContent = error.message;
+      bookingMessage.textContent = `${error.message} ${t('bookingSendFallback')}`;
       bookingMessage.className = 'booking-message error';
     } finally {
       submitButton.disabled = false;
