@@ -109,7 +109,7 @@ function saveBookings(bookings) {
 }
 
 function isEmailConfigured() {
-  return Boolean(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS);
+  return Boolean(process.env.RESEND_API_KEY || (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS));
 }
 
 function smtpEncode(value) {
@@ -252,6 +252,11 @@ function upgradeToTls(socket) {
 }
 
 async function sendBookingEmail(booking) {
+  if (process.env.RESEND_API_KEY) {
+    await sendBookingEmailWithResend(booking);
+    return;
+  }
+
   const smtpHost = process.env.SMTP_HOST;
   const smtpPort = Number(process.env.SMTP_PORT || 587);
   const secure = process.env.SMTP_SECURE === 'true';
@@ -291,6 +296,33 @@ async function sendBookingEmail(booking) {
 
   if (!emailAccepted) {
     throw new Error('Email was not accepted by the SMTP server.');
+  }
+}
+
+async function sendBookingEmailWithResend(booking) {
+  const from = process.env.EMAIL_FROM || process.env.SMTP_FROM || 'GoClean Lux <contact@goclean.lu>';
+  const subject = `New GoClean Lux booking: ${booking.serviceType} on ${booking.date}`;
+  const text = formatBookingEmailText(booking);
+
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from,
+      to: [bookingReceiverEmail],
+      reply_to: booking.email,
+      subject,
+      text,
+    }),
+  });
+
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const resendMessage = result.message || result.error || `Resend returned HTTP ${response.status}`;
+    throw new Error(`Resend email failed: ${resendMessage}`);
   }
 }
 
