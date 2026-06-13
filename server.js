@@ -423,25 +423,37 @@ async function handleBooking(req, res) {
       return;
     }
 
-    if (!isEmailConfigured()) {
-      console.log('New GoClean Lux booking request:', booking);
-      bookings.push(booking);
-      saveBookings(bookings);
-      sendJson(res, 200, {
-        mailSent: false,
-        message: 'Booking received, but SMTP email delivery is not configured yet.',
-        booking: bookingResponseSummary(booking),
-      });
-      return;
+    let mailSent = false;
+    let emailError = '';
+
+    if (isEmailConfigured()) {
+      try {
+        await sendBookingEmail(booking);
+        mailSent = true;
+      } catch (error) {
+        emailError = publicEmailError(error);
+        console.error('Booking email delivery failed:', error);
+      }
+    } else {
+      emailError = 'Email delivery is not configured on the server.';
     }
 
-    await sendBookingEmail(booking);
+    const bookingForLog = {
+      ...booking,
+      mailSent,
+      emailError,
+    };
+
+    console.log('New GoClean Lux booking request:', bookingForLog);
     bookings.push(booking);
     saveBookings(bookings);
     sendJson(res, 200, {
-      mailSent: true,
-      message: 'Booking request sent.',
+      mailSent,
+      message: mailSent
+        ? 'Booking request sent.'
+        : 'Booking received and logged. Email delivery failed, please confirm manually from the server logs.',
       booking: bookingResponseSummary(booking),
+      emailError,
     });
   } catch (error) {
     console.error('Booking request failed:', error);
