@@ -792,6 +792,10 @@ a {
   grid-column: 1 / -1;
 }
 
+.booking-wizard-nav {
+  display: none;
+}
+
 label {
   color: var(--ink);
   font-size: 1.02rem;
@@ -1432,9 +1436,108 @@ textarea {
     gap: 26px;
   }
 
+  .booking-form form.wizard-enabled {
+    gap: 18px;
+    padding-bottom: calc(78px + env(safe-area-inset-bottom));
+  }
+
+  .wizard-enabled [data-booking-step] {
+    display: none !important;
+  }
+
+  .wizard-enabled .booking-intro {
+    display: none !important;
+  }
+
+  .wizard-enabled .booking-step-title.wizard-step-active,
+  .wizard-enabled .form-row.wizard-step-active {
+    display: grid !important;
+  }
+
+  .wizard-enabled button.wizard-step-active {
+    display: inline-flex !important;
+  }
+
+  .wizard-enabled .form-note.wizard-step-active {
+    display: block !important;
+  }
+
+  .wizard-enabled .booking-message.wizard-step-active.success,
+  .wizard-enabled .booking-message.wizard-step-active.error {
+    display: block !important;
+  }
+
+  .booking-wizard-nav:not([hidden]) {
+    position: sticky;
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    z-index: 12;
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(16, 34, 53, 0.12);
+    border-radius: var(--radius);
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 18px 44px rgba(16, 34, 53, 0.2);
+  }
+
+  .booking-wizard-nav > span {
+    color: var(--ink-soft);
+    font-size: 0.86rem;
+    font-weight: 900;
+    text-align: center;
+  }
+
+  .wizard-back,
+  .wizard-next {
+    min-height: 48px;
+    border-radius: var(--radius);
+    padding: 0 16px;
+    font: inherit;
+    font-weight: 900;
+    cursor: pointer;
+  }
+
+  .wizard-back {
+    border: 1px solid rgba(16, 34, 53, 0.14);
+    color: var(--ink);
+    background: #ffffff;
+  }
+
+  .wizard-back:disabled {
+    opacity: 0.38;
+    cursor: default;
+  }
+
+  .wizard-next {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid var(--aqua-dark);
+    color: #ffffff;
+    background: var(--aqua-dark);
+  }
+
+  .wizard-message {
+    grid-column: 1 / -1;
+    min-height: 0;
+    margin: 0;
+    color: var(--danger);
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-align: center;
+  }
+
   .booking-form,
   .booking-summary {
     padding: 18px;
+  }
+
+  .booking-summary {
+    display: none;
   }
 
   .booking-promise {

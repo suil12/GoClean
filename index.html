@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260622-notifications" />
+  <link rel="stylesheet" href="styles.css?v=20260622-mobile-wizard" />
   <link rel="icon" type="image/png" href="img/logo_white.png" />
 </head>
 <body>
@@ -235,12 +235,12 @@
         <div class="booking-grid">
           <div class="booking-form reveal">
             <form id="bookingForm">
-              <div class="booking-step-title form-row-wide">
+              <div class="booking-step-title form-row-wide booking-intro">
                 <span data-i18n="step1">Step 1</span>
                 <h3 data-i18n="stepServiceTitle">Your mobile car detailing</h3>
                 <p data-i18n="stepServiceText">Choose your car package below. We bring the professional equipment to your home, office, or parking spot.</p>
               </div>
-              <div class="form-row form-row-wide">
+              <div class="form-row form-row-wide booking-intro">
                 <input id="serviceSelect" type="hidden" value="Car Cleaning" />
                 <div class="booking-detailing-card">
                   <div>
@@ -257,12 +257,12 @@
                   </ul>
                 </div>
               </div>
-              <div class="booking-step-title form-row-wide car-details-row" id="packageStepTitle" style="display:none;">
-                <span data-i18n="step2">Step 2</span>
+              <div class="booking-step-title form-row-wide car-details-row" id="packageStepTitle" data-booking-step="1" style="display:none;">
+                <span data-i18n="step1">Step 1</span>
                 <h3 data-i18n="stepPackageTitle">Which car package?</h3>
                 <p data-i18n="stepPackageText">Pick exactly what your car needs. Each package shows the main work included and the launch price.</p>
               </div>
-              <div class="form-row form-row-wide car-details-row" id="serviceTypeRow" style="display:none;">
+              <div class="form-row form-row-wide car-details-row" id="serviceTypeRow" data-booking-step="1" style="display:none;">
                 <label data-i18n="choosePackage">Car package</label>
                 <div class="option-grid" id="packageOptions">
                   <button type="button" class="option-button package-option" data-package="Express Exterior Wash">
@@ -308,12 +308,12 @@
                   </button>
                 </div>
               </div>
-              <div class="booking-step-title form-row-wide car-details-row" id="vehicleStepTitle" style="display:none;">
-                <span data-i18n="step3">Step 3</span>
+              <div class="booking-step-title form-row-wide car-details-row" id="vehicleStepTitle" data-booking-step="2" style="display:none;">
+                <span data-i18n="step2">Step 2</span>
                 <h3 data-i18n="stepVehicleTitle">What size is your vehicle?</h3>
                 <p data-i18n="stepVehicleText">This helps us prepare the right time, products and equipment for your car.</p>
               </div>
-              <div class="form-row form-row-wide car-details-row" id="carSizeRow" style="display:none;">
+              <div class="form-row form-row-wide car-details-row" id="carSizeRow" data-booking-step="2" style="display:none;">
                 <label data-i18n="vehicleSize">Vehicle size</label>
                 <div class="option-grid" id="carSizeOptions">
                   <button type="button" class="option-button car-size-option selected" data-size="cityCar">
@@ -335,50 +335,56 @@
                 </div>
                 <p class="form-note small-note" data-i18n="vehicleNote">Choose the size that best fits your vehicle. Final price may vary based on condition and extra service needs.</p>
               </div>
-              <div class="booking-step-title form-row-wide">
-                <span data-i18n="step4">Step 4</span>
+              <div class="booking-step-title form-row-wide" data-booking-step="3">
+                <span data-i18n="step3">Step 3</span>
                 <h3 data-i18n="stepDateTitle">When should we come?</h3>
                 <p data-i18n="stepDateText">Select your preferred day and one available 3-hour arrival window.</p>
               </div>
-              <div class="form-row">
+              <div class="form-row" data-booking-step="3">
                 <label for="dateSelect" data-i18n="preferredDate">Preferred date</label>
                 <div class="date-input-wrapper">
                   <input id="dateSelect" type="date" required />
                   <button type="button" id="calendarToggle" class="calendar-toggle" aria-label="Open calendar">📅</button>
                 </div>
               </div>
-              <div class="form-row form-row-wide">
+              <div class="form-row form-row-wide" data-booking-step="3">
                 <label data-i18n="availableSlots">Available 3-hour slots</label>
                 <div id="slotContainer" class="slot-list"></div>
               </div>
-              <div class="booking-step-title form-row-wide">
-                <span data-i18n="step5">Step 5</span>
+              <div class="booking-step-title form-row-wide" data-booking-step="4">
+                <span data-i18n="step4">Step 4</span>
                 <h3 data-i18n="stepDetailsTitle">Where should we come?</h3>
                 <p data-i18n="stepDetailsText">Add your contact details and the address where we should arrive.</p>
               </div>
-              <div class="form-row">
+              <div class="form-row" data-booking-step="4">
                 <label for="nameInput" data-i18n="fullName">Full name</label>
                 <input id="nameInput" type="text" placeholder="Your name" data-placeholder-key="namePlaceholder" required />
               </div>
-              <div class="form-row">
+              <div class="form-row" data-booking-step="4">
                 <label for="phoneInput" data-i18n="phoneNumber">Phone number</label>
                 <input id="phoneInput" type="tel" placeholder="+352 12 34 56 78" required />
               </div>
-              <div class="form-row">
+              <div class="form-row" data-booking-step="4">
                 <label for="emailInput" data-i18n="emailAddress">Email address</label>
                 <input id="emailInput" type="email" placeholder="contact@example.com" required />
               </div>
-              <div class="form-row form-row-wide">
+              <div class="form-row form-row-wide" data-booking-step="4">
                 <label for="addressInput" data-i18n="serviceAddress">Address where we come</label>
                 <input id="addressInput" type="text" placeholder="Street, city, Luxembourg" data-placeholder-key="addressPlaceholder" required />
               </div>
-              <div class="form-row form-row-wide">
+              <div class="form-row form-row-wide" data-booking-step="4">
                 <label for="notesInput" data-i18n="notes">Notes</label>
                 <textarea id="notesInput" placeholder="Tell us anything useful: car model, access details, stains, parking..." data-placeholder-key="notesPlaceholder" rows="4"></textarea>
               </div>
-              <button type="submit" class="button-primary" data-i18n="requestBooking">Request booking</button>
-              <p class="form-note" data-i18n="formNote">After you submit, your full request is sent to GoClean Lux and we confirm the appointment with you.</p>
-              <div id="bookingMessage" class="booking-message"></div>
+              <button type="submit" class="button-primary" data-booking-step="4" data-i18n="requestBooking">Request booking</button>
+              <p class="form-note" data-booking-step="4" data-i18n="formNote">After you submit, your full request is sent to GoClean Lux and we confirm the appointment with you.</p>
+              <div id="bookingMessage" class="booking-message" data-booking-step="4"></div>
+              <div class="booking-wizard-nav" id="bookingWizardNav" aria-label="Booking steps">
+                <p class="wizard-message" id="bookingWizardMessage" aria-live="polite"></p>
+                <button type="button" class="wizard-back" id="bookingBack" data-i18n="backStep">Back</button>
+                <span id="bookingStepProgress">1 / 4</span>
+                <button type="button" class="wizard-next" id="bookingNext"><span data-i18n="nextStep">Next</span> <span aria-hidden="true">→</span></button>
+              </div>
             </form>
           </div>
 
@@ -428,6 +434,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=20260622-notifications"></script>
+  <script src="script.js?v=20260622-mobile-wizard"></script>
 </body>
 </html>

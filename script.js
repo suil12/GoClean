@@ -33,11 +33,20 @@ document.addEventListener('DOMContentLoaded', function () {
   const vehicleStepTitle = document.getElementById('vehicleStepTitle');
   const calendarToggle = document.getElementById('calendarToggle');
   const languageButtons = document.querySelectorAll('.lang-button');
+  const bookingStepElements = document.querySelectorAll('[data-booking-step]');
+  const bookingWizardNav = document.getElementById('bookingWizardNav');
+  const bookingBack = document.getElementById('bookingBack');
+  const bookingNext = document.getElementById('bookingNext');
+  const bookingStepProgress = document.getElementById('bookingStepProgress');
+  const bookingWizardMessage = document.getElementById('bookingWizardMessage');
+  const mobileBookingQuery = window.matchMedia('(max-width: 780px)');
 
   let selectedPackage = 'Complete Clean';
   let selectedCarSize = 'cityCar';
   let availableSlots = [];
   let currentLanguage = 'en';
+  let currentBookingStep = 1;
+  const totalBookingSteps = 4;
 
   const translations = {
     en: {
@@ -130,6 +139,9 @@ document.addEventListener('DOMContentLoaded', function () {
       step3: 'Step 3',
       step4: 'Step 4',
       step5: 'Step 5',
+      backStep: 'Back',
+      nextStep: 'Next',
+      stepProgress: 'Step {current} of {total}',
       stepServiceTitle: 'Your mobile car detailing',
       stepServiceText: 'Choose your car package below. We bring the professional equipment to your home, office, or parking spot.',
       chooseService: 'Service',
@@ -290,6 +302,9 @@ document.addEventListener('DOMContentLoaded', function () {
       step3: 'Étape 3',
       step4: 'Étape 4',
       step5: 'Étape 5',
+      backStep: 'Retour',
+      nextStep: 'Suivant',
+      stepProgress: 'Étape {current} sur {total}',
       stepServiceTitle: 'Votre detailing auto mobile',
       stepServiceText: 'Choisissez votre forfait voiture ci-dessous. Nous apportons le matériel professionnel à domicile, au bureau ou sur votre parking.',
       chooseService: 'Service',
@@ -403,6 +418,7 @@ document.addEventListener('DOMContentLoaded', function () {
       element.placeholder = t(element.dataset.placeholderKey);
     });
     updateSummary();
+    renderBookingWizard();
   }
 
   yearEl.textContent = new Date().getFullYear();
@@ -550,6 +566,67 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let selectedSlot = null;
 
+  function bookingStepLabel() {
+    return t('stepProgress')
+      .replace('{current}', currentBookingStep)
+      .replace('{total}', totalBookingSteps);
+  }
+
+  function renderBookingWizard() {
+    const isMobileWizard = mobileBookingQuery.matches;
+    bookingForm.classList.toggle('wizard-enabled', isMobileWizard);
+    bookingWizardNav.hidden = !isMobileWizard;
+
+    bookingStepElements.forEach((element) => {
+      const isActive = Number(element.dataset.bookingStep) === currentBookingStep;
+      element.classList.toggle('wizard-step-active', !isMobileWizard || isActive);
+    });
+
+    bookingBack.disabled = currentBookingStep === 1;
+    bookingNext.hidden = currentBookingStep === totalBookingSteps;
+    bookingStepProgress.textContent = bookingStepLabel();
+    bookingWizardMessage.textContent = '';
+  }
+
+  function scrollToCurrentBookingStep() {
+    const activeStep = bookingForm.querySelector(`[data-booking-step="${currentBookingStep}"]`);
+    activeStep?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function canAdvanceBookingStep() {
+    if (currentBookingStep === 3 && !selectedSlot) {
+      bookingWizardMessage.textContent = t('chooseSlotError');
+      return false;
+    }
+    return true;
+  }
+
+  bookingBack.addEventListener('click', () => {
+    currentBookingStep = Math.max(1, currentBookingStep - 1);
+    renderBookingWizard();
+    scrollToCurrentBookingStep();
+  });
+
+  bookingNext.addEventListener('click', () => {
+    if (!canAdvanceBookingStep()) {
+      return;
+    }
+    currentBookingStep = Math.min(totalBookingSteps, currentBookingStep + 1);
+    renderBookingWizard();
+    scrollToCurrentBookingStep();
+  });
+
+  const handleBookingViewportChange = () => {
+    currentBookingStep = Math.min(currentBookingStep, totalBookingSteps);
+    renderBookingWizard();
+  };
+
+  if (typeof mobileBookingQuery.addEventListener === 'function') {
+    mobileBookingQuery.addEventListener('change', handleBookingViewportChange);
+  } else {
+    mobileBookingQuery.addListener(handleBookingViewportChange);
+  }
+
   function setTodayMinimum() {
     const today = new Date();
     const isoDate = [
@@ -609,6 +686,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       slotButton.addEventListener('click', () => {
         selectedSlot = slot;
+        bookingWizardMessage.textContent = '';
         updateSummary();
         renderSlots();
       });
@@ -672,10 +750,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function chooseService(card) {
     serviceSelect.value = 'Car Cleaning';
+    currentBookingStep = 1;
     updateBookingFieldsVisibility();
     selectedSlot = null;
     updateSummary();
     loadAvailableSlots(dateSelect.value);
+    renderBookingWizard();
     document.getElementById('contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -727,6 +807,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   dateSelect.addEventListener('change', () => {
     selectedSlot = null;
+    bookingWizardMessage.textContent = '';
     updateSummary();
     loadAvailableSlots(dateSelect.value);
   });
@@ -848,8 +929,10 @@ document.addEventListener('DOMContentLoaded', function () {
       bookingForm.reset();
       setTodayMinimum();
       selectedSlot = null;
+      currentBookingStep = 1;
       updateSummary();
       renderSlots();
+      renderBookingWizard();
     } catch (error) {
       bookingMessage.textContent = `${error.message} ${t('bookingSendFallback')}`;
       bookingMessage.className = 'booking-message error';
@@ -862,5 +945,6 @@ document.addEventListener('DOMContentLoaded', function () {
   updateBookingFieldsVisibility();
   setTodayMinimum();
   loadAvailableSlots(dateSelect.value);
+  renderBookingWizard();
   applyLanguage(currentLanguage);
 });
