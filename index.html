@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260622-mobile-wizard" />
+  <link rel="stylesheet" href="styles.css?v=20260622-landing-flow" />
   <link rel="icon" type="image/png" href="img/logo_white.png" />
 </head>
 <body>
@@ -40,12 +40,13 @@
     <main>
       <section class="hero" id="home">
         <div class="hero-copy">
-          <p class="eyebrow accent" data-i18n="heroEyebrow">Premium Cleaning. Anytime. Anywhere.</p>
-          <h1 data-i18n="heroTitle">Car detailing with home cleaning power.</h1>
-          <p data-i18n="heroText">GoClean Lux brings a polished finish to cars, sofas, homes, gardens and offices with mobile cleaning services tailored for Luxembourg.</p>
+          <p class="eyebrow accent" data-i18n="heroEyebrow">Professional mobile car detailing</p>
+          <h1 data-i18n="heroTitle">Detailing at your home.</h1>
+          <p data-i18n="heroText">You relax. We take care of your car wherever it is parked, at home or at the office.</p>
           <div class="hero-actions">
-            <a href="#contact" class="button-primary" data-i18n="heroQuote">Get a free quote</a>
-            <a href="#services" class="button-secondary" data-i18n="heroServices">View services</a>
+            <a href="#contact" class="button-primary" data-i18n="heroQuote">Book your detailing</a>
+            <a href="https://wa.me/352661920598?text=Hello%20GoClean%20Lux%2C%20I%20would%20like%20more%20information." class="button-secondary hero-social-button whatsapp" target="_blank" rel="noopener" data-i18n="heroWhatsApp">WhatsApp information</a>
+            <a href="https://www.instagram.com/gocleanlux/" class="button-secondary hero-social-button instagram" target="_blank" rel="noopener" data-i18n="heroInstagram">Watch our videos</a>
           </div>
           <div class="hero-highlights">
             <div><strong data-count="50">0</strong> <span data-i18n="heroClients">satisfied clients</span></div>
@@ -87,6 +88,8 @@
           </div>
         </div>
       </section>
+
+      <div id="bookingPlacement" aria-hidden="true"></div>
 
       <section class="section-intro" id="services">
         <div class="section-heading">
@@ -412,6 +415,15 @@
           </aside>
         </div>
       </section>
+
+      <section class="results-gallery" id="results" hidden>
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="resultsEyebrow">Real detailing results</p>
+          <h2 data-i18n="resultsTitle">See the difference before and after.</h2>
+          <p data-i18n="resultsText">Real transformations from GoClean Lux mobile detailing sessions.</p>
+        </div>
+        <div class="results-grid" id="resultsGrid"></div>
+      </section>
     </main>
   </div>
 
@@ -434,6 +446,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=20260622-mobile-wizard"></script>
+  <script src="script.js?v=20260622-landing-flow"></script>
 </body>
 </html>

@@ -38,6 +38,7 @@ const port = process.env.PORT || 3000;
 const host = process.env.HOST || '0.0.0.0';
 const bookingReceiverEmail = process.env.BOOKING_RECEIVER_EMAIL || 'contact@goclean.lu';
 const bookingsFile = path.join(__dirname, 'bookings.json');
+const resultsDirectory = path.join(__dirname, 'img', 'work');
 const publicRoot = __dirname;
 const timeSlots = Array.from({ length: 8 }, (_, index) => {
   const hour = 9 + index;
@@ -106,6 +107,34 @@ function saveBookings(bookings) {
   } catch (error) {
     console.error('Could not save bookings file:', error);
   }
+}
+
+function listResultPairs() {
+  if (!fs.existsSync(resultsDirectory)) {
+    return [];
+  }
+
+  const files = new Set(fs.readdirSync(resultsDirectory));
+  const pairs = [];
+
+  files.forEach((filename) => {
+    const match = filename.match(/^before(\d*)\.(png|jpg|jpeg|tif|tiff)$/i);
+    if (!match) {
+      return;
+    }
+
+    const suffix = match[1];
+    const afterFilename = `after${suffix}.png` || `after${suffix}.jpg` || `after${suffix}.jpeg` || `after${suffix}.tif` || `after${suffix}.tiff`;
+    if (files.has(afterFilename)) {
+      pairs.push({
+        order: suffix === '' ? 0 : Number(suffix),
+        before: `/img/work/${filename}`,
+        after: `/img/work/${afterFilename}`,
+      });
+    }
+  });
+
+  return pairs.sort((a, b) => a.order - b.order);
 }
 
 function isEmailConfigured() {
@@ -596,6 +625,11 @@ const server = http.createServer((req, res) => {
 
     const bookedSlots = loadBookings().filter((booking) => booking.date === date).map((booking) => booking.time);
     sendJson(res, 200, { slots: timeSlots.filter((slot) => !bookedSlots.includes(slot)) });
+    return;
+  }
+
+  if (req.method === 'GET' && requestUrl.pathname === '/api/results') {
+    sendJson(res, 200, { pairs: listResultPairs() });
     return;
   }
 

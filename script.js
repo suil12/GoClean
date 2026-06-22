@@ -40,6 +40,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const bookingStepProgress = document.getElementById('bookingStepProgress');
   const bookingWizardMessage = document.getElementById('bookingWizardMessage');
   const mobileBookingQuery = window.matchMedia('(max-width: 780px)');
+  const bookingPlacement = document.getElementById('bookingPlacement');
+  const bookingPanel = document.getElementById('contact');
+  const resultsSection = document.getElementById('results');
+  const resultsGrid = document.getElementById('resultsGrid');
+
+  if (bookingPlacement && bookingPanel && resultsSection) {
+    bookingPlacement.replaceWith(bookingPanel, resultsSection);
+  }
 
   let selectedPackage = 'Complete Clean';
   let selectedCarSize = 'cityCar';
@@ -56,11 +64,13 @@ document.addEventListener('DOMContentLoaded', function () {
       navHow: 'How it Works',
       navReviews: 'Reviews',
       navBook: 'Book Now',
-      heroEyebrow: 'Premium Cleaning. Anytime. Anywhere.',
-      heroTitle: 'Car detailing with home cleaning power.',
-      heroText: 'GoClean Lux brings professional mobile detailing to your home, office, or wherever your car is parked.',
-      heroQuote: 'Get a free quote',
+      heroEyebrow: 'Professional mobile car detailing',
+      heroTitle: 'Detailing at your home.',
+      heroText: 'You relax. We take care of your car wherever it is parked, at home or at the office.',
+      heroQuote: 'Book your detailing',
       heroServices: 'View services',
+      heroWhatsApp: 'WhatsApp information',
+      heroInstagram: 'Watch our videos',
       heroClients: 'satisfied clients',
       heroFast: 'fast booking',
       heroEco: 'premium products',
@@ -93,6 +103,11 @@ document.addEventListener('DOMContentLoaded', function () {
       packagesEyebrow: 'Car detailing packages',
       packagesTitle: 'Pick the level of care your car needs.',
       packagesText: 'Choose the car service you need, tell us where the car is, and we come to you. Launch prices may vary depending on vehicle size, condition, stain level, and extra requests.',
+      resultsEyebrow: 'Real detailing results',
+      resultsTitle: 'See the difference before and after.',
+      resultsText: 'Real transformations from GoClean Lux mobile detailing sessions.',
+      beforeLabel: 'Before',
+      afterLabel: 'After',
       pkgExpress: 'Express Exterior Wash',
       pkgExpressText: 'Pre-rinse, snow foam, hand wash, and wheel cleaning for a fast exterior reset.',
       pkgExpressShort: 'Pre-rinse, snow foam, hand wash',
@@ -219,11 +234,13 @@ document.addEventListener('DOMContentLoaded', function () {
       navHow: 'Fonctionnement',
       navReviews: 'Avis',
       navBook: 'Réserver',
-      heroEyebrow: 'Nettoyage premium. Partout. À tout moment.',
-      heroTitle: 'Detailing auto avec la puissance du nettoyage à domicile.',
-      heroText: 'GoClean Lux apporte un detailing mobile professionnel à votre domicile, au bureau ou là où votre voiture est stationnée.',
-      heroQuote: 'Demander un devis',
+      heroEyebrow: 'Detailing automobile mobile professionnel',
+      heroTitle: 'Le detailing à votre domicile.',
+      heroText: 'Vous vous détendez. Nous prenons soin de votre voiture à domicile, au bureau ou là où elle est stationnée.',
+      heroQuote: 'Réserver votre detailing',
       heroServices: 'Voir les services',
+      heroWhatsApp: 'Informations sur WhatsApp',
+      heroInstagram: 'Voir nos vidéos',
       heroClients: 'clients satisfaits',
       heroFast: 'réservation rapide',
       heroEco: 'produits premium',
@@ -256,6 +273,11 @@ document.addEventListener('DOMContentLoaded', function () {
       packagesEyebrow: 'Forfaits detailing voiture',
       packagesTitle: 'Choisissez le niveau de soin adapté à votre voiture.',
       packagesText: 'Choisissez le service auto dont vous avez besoin, indiquez où se trouve la voiture, et nous venons à vous. Les prix de lancement peuvent varier selon la taille, l’état, les taches et les demandes supplémentaires.',
+      resultsEyebrow: 'Résultats detailing réels',
+      resultsTitle: 'Voyez la différence avant et après.',
+      resultsText: 'De vraies transformations réalisées par GoClean Lux en detailing mobile.',
+      beforeLabel: 'Avant',
+      afterLabel: 'Après',
       pkgExpress: 'Lavage extérieur express',
       pkgExpressText: 'Pré-rinçage, snow foam, lavage à la main et nettoyage des jantes pour un extérieur propre rapidement.',
       pkgExpressShort: 'Pré-rinçage, snow foam, lavage main',
@@ -501,6 +523,40 @@ document.addEventListener('DOMContentLoaded', function () {
       applyLanguage(button.dataset.lang);
     });
   });
+
+  async function loadResultsGallery() {
+    if (!resultsSection || !resultsGrid || window.location.protocol === 'file:') {
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/results');
+      const data = await response.json();
+      if (!response.ok || !Array.isArray(data.pairs) || data.pairs.length === 0) {
+        return;
+      }
+
+      resultsGrid.innerHTML = '';
+      data.pairs.forEach((pair, index) => {
+        const card = document.createElement('article');
+        card.className = 'result-pair reveal visible';
+        card.innerHTML = `
+          <figure>
+            <img src="${pair.before}" alt="GoClean Lux detailing before ${index + 1}" loading="lazy" />
+            <figcaption data-i18n="beforeLabel">${t('beforeLabel')}</figcaption>
+          </figure>
+          <figure>
+            <img src="${pair.after}" alt="GoClean Lux detailing after ${index + 1}" loading="lazy" />
+            <figcaption data-i18n="afterLabel">${t('afterLabel')}</figcaption>
+          </figure>
+        `;
+        resultsGrid.appendChild(card);
+      });
+      resultsSection.hidden = false;
+    } catch (error) {
+      resultsSection.hidden = true;
+    }
+  }
 
   const revealElements = document.querySelectorAll('.reveal');
   document.documentElement.classList.add('reveal-ready');
@@ -945,6 +1001,7 @@ document.addEventListener('DOMContentLoaded', function () {
   updateBookingFieldsVisibility();
   setTodayMinimum();
   loadAvailableSlots(dateSelect.value);
+  loadResultsGallery();
   renderBookingWizard();
   applyLanguage(currentLanguage);
 });
