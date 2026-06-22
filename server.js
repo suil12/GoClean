@@ -112,6 +112,18 @@ function isEmailConfigured() {
   return Boolean(process.env.RESEND_API_KEY || (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS));
 }
 
+function isTelegramConfigured() {
+  return Boolean(process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID);
+}
+
+function isWhatsAppConfigured() {
+  return Boolean(
+    process.env.WHATSAPP_ACCESS_TOKEN &&
+    process.env.WHATSAPP_PHONE_NUMBER_ID &&
+    process.env.WHATSAPP_RECIPIENT
+  );
+}
+
 function smtpEncode(value) {
   return Buffer.from(String(value), 'utf8').toString('base64');
 }
@@ -166,6 +178,11 @@ function bookingResponseSummary(booking) {
     date: booking.date,
     time: booking.time,
     estimate: booking.estimate,
+    name: booking.name,
+    phone: booking.phone,
+    email: booking.email,
+    address: booking.address,
+    notes: booking.notes,
     customer: {
       name: booking.name,
       phone: booking.phone,
@@ -256,7 +273,7 @@ function connectSmtp() {
       : net.connect({ host: smtpHost, port: smtpPort });
 
     socket.setEncoding('utf8');
-    socket.setTimeout(15000);
+    socket.setTimeout(Number(process.env.SMTP_TIMEOUT_MS || 6000));
     if (useImplicitTls) {
       socket.once('secureConnect', () => resolve(socket));
     } else {
@@ -356,6 +373,112 @@ async function sendBookingEmailWithResend(booking) {
   }
 }
 
+async function sendBookingTelegram(booking) {
+  const response = await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: process.env.TELEGRAM_CHAT_ID,
+      text: formatBookingEmailText(booking),
+      disable_web_page_preview: true,
+    }),
+  });
+
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok || result.ok === false) {
+    throw new Error(result.description || `Telegram returned HTTP ${response.status}`);
+  }
+}
+
+async function sendBookingWhatsApp(booking) {
+  const apiVersion = process.env.WHATSAPP_API_VERSION || 'v23.0';
+  const url = `https://graph.facebook.com/${apiVersion}/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`;
+  const templateName = clean(process.env.WHATSAPP_TEMPLATE_NAME);
+  const payload = templateName
+    ? {
+        messaging_product: 'whatsapp',
+        to: process.env.WHATSAPP_RECIPIENT,
+        type: 'template',
+        template: {
+          name: templateName,
+          language: { code: process.env.WHATSAPP_TEMPLATE_LANGUAGE || 'en_US' },
+        },
+      }
+    : {
+        messaging_product: 'whatsapp',
+        recipient_type: 'individual',
+        to: process.env.WHATSAPP_RECIPIENT,
+        type: 'text',
+        text: { preview_url: false, body: formatBookingEmailText(booking) },
+      };
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.WHATSAPP_ACCESS_TOKEN}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const message = result.error?.message || `WhatsApp returned HTTP ${response.status}`;
+    throw new Error(message);
+  }
+}
+
+async function sendBookingWebhook(booking) {
+  const response = await fetch(process.env.BOOKING_WEBHOOK_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(process.env.BOOKING_WEBHOOK_SECRET
+        ? { Authorization: `Bearer ${process.env.BOOKING_WEBHOOK_SECRET}` }
+        : {}),
+    },
+    body: JSON.stringify({ event: 'booking.created', booking }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Booking webhook returned HTTP ${response.status}`);
+  }
+}
+
+async function attemptNotification(channel, configured, sender) {
+  if (!configured) {
+    return { configured: false, sent: false, error: '' };
+  }
+
+  try {
+    await sender();
+    return { configured: true, sent: true, error: '' };
+  } catch (error) {
+    console.error(`Booking ${channel} notification failed:`, error);
+    return { configured: true, sent: false, error: String(error?.message || error) };
+  }
+}
+
+async function deliverBookingNotifications(booking) {
+  const [email, telegram, whatsapp, webhook] = await Promise.all([
+    attemptNotification('email', isEmailConfigured(), () => sendBookingEmail(booking)),
+    attemptNotification('Telegram', isTelegramConfigured(), () => sendBookingTelegram(booking)),
+    attemptNotification('WhatsApp', isWhatsAppConfigured(), () => sendBookingWhatsApp(booking)),
+    attemptNotification('webhook', Boolean(process.env.BOOKING_WEBHOOK_URL), () => sendBookingWebhook(booking)),
+  ]);
+
+  return { email, telegram, whatsapp, webhook };
+}
+
+function publicNotificationSummary(notifications) {
+  return Object.fromEntries(
+    Object.entries(notifications).map(([channel, result]) => [
+      channel,
+      { configured: result.configured, sent: result.sent },
+    ])
+  );
+}
+
 function serveStatic(req, res, pathname) {
   const safePath = pathname === '/' ? '/index.html' : pathname;
   const filePath = path.normalize(path.join(publicRoot, safePath));
@@ -423,24 +546,19 @@ async function handleBooking(req, res) {
       return;
     }
 
-    let mailSent = false;
-    let emailError = '';
-
-    if (isEmailConfigured()) {
-      try {
-        await sendBookingEmail(booking);
-        mailSent = true;
-      } catch (error) {
-        emailError = publicEmailError(error);
-        console.error('Booking email delivery failed:', error);
-      }
-    } else {
-      emailError = 'Email delivery is not configured on the server.';
-    }
+    const notifications = await deliverBookingNotifications(booking);
+    const notificationSummary = publicNotificationSummary(notifications);
+    const mailSent = notifications.email.sent;
+    const notificationSent = Object.values(notifications).some((notification) => notification.sent);
+    const emailError = notifications.email.configured
+      ? notifications.email.error
+      : 'Email delivery is not configured on the server.';
 
     const bookingForLog = {
       ...booking,
       mailSent,
+      notificationSent,
+      notifications: notificationSummary,
       emailError,
     };
 
@@ -449,11 +567,13 @@ async function handleBooking(req, res) {
     saveBookings(bookings);
     sendJson(res, 200, {
       mailSent,
-      message: mailSent
-        ? 'Booking request sent.'
-        : 'Booking received and logged. Email delivery failed, please confirm manually from the server logs.',
+      notificationSent,
+      message: notificationSent
+        ? 'Booking request received and notification sent.'
+        : 'Booking received and logged. Please confirm manually from the server logs.',
       booking: bookingResponseSummary(booking),
-      emailError,
+      notifications: notificationSummary,
+      emailError: emailError ? publicEmailError(new Error(emailError)) : '',
     });
   } catch (error) {
     console.error('Booking request failed:', error);

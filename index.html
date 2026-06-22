@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260613-booking-recap" />
+  <link rel="stylesheet" href="styles.css?v=20260622-notifications" />
   <link rel="icon" type="image/png" href="img/logo_white.png" />
 </head>
 <body>
@@ -421,10 +421,13 @@
       <h2 id="bookingModalTitle"><span data-i18n="modalThanks">Thank you,</span> <span id="modalName">there</span>.</h2>
       <p id="modalCopy">Your request has been received. GoClean Lux will confirm the appointment shortly.</p>
       <div class="modal-summary" id="modalSummary"></div>
-      <button class="button-primary" id="modalDone" type="button" data-i18n="done">Done</button>
+      <div class="modal-actions">
+        <a class="button-secondary modal-whatsapp" id="modalWhatsApp" href="https://wa.me/352661920598" target="_blank" rel="noopener" data-i18n="sendWhatsAppRecap">Send recap on WhatsApp</a>
+        <button class="button-primary" id="modalDone" type="button" data-i18n="done">Done</button>
+      </div>
     </div>
   </div>
 
-  <script src="script.js?v=20260613-booking-recap"></script>
+  <script src="script.js?v=20260622-notifications"></script>
 </body>
 </html>

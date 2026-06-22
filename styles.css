@@ -1281,6 +1281,25 @@ textarea {
   text-align: right;
 }
 
+.modal-actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+}
+
+.modal-actions .button-primary,
+.modal-actions .button-secondary {
+  min-height: 50px;
+  justify-content: center;
+  text-align: center;
+}
+
+.modal-whatsapp {
+  color: #ffffff;
+  background: #168b4e;
+  border-color: #168b4e;
+}
+
 .footer {
   position: relative;
   z-index: 1;
@@ -1547,5 +1566,9 @@ textarea {
 
   .modal-summary strong {
     text-align: left;
+  }
+
+  .modal-actions {
+    grid-template-columns: 1fr;
   }
 }

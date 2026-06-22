@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const modalName = document.getElementById('modalName');
   const modalCopy = document.getElementById('modalCopy');
   const modalSummary = document.getElementById('modalSummary');
+  const modalWhatsApp = document.getElementById('modalWhatsApp');
   const summaryService = document.getElementById('summaryService');
   const summaryPackage = document.getElementById('summaryPackage');
   const summaryVehicle = document.getElementById('summaryVehicle');
@@ -188,8 +189,9 @@ document.addEventListener('DOMContentLoaded', function () {
       footerText: 'Mobile Cleaning & Detailing in Luxembourg',
       modalEyebrow: 'Booking request sent',
       modalThanks: 'Thank you,',
-      modalSent: 'Your request has been received and GoClean Lux has been emailed the booking details.',
+      modalSent: 'Your request has been received and GoClean Lux has been notified with the booking details.',
       modalSaved: 'Your request has been received. GoClean Lux has your booking recap and will confirm manually.',
+      sendWhatsAppRecap: 'Send recap on WhatsApp',
       done: 'Done',
       slotEmpty: 'No slots available for this date. Please choose another day.',
       chooseSlotError: 'Please choose a time slot before submitting.',
@@ -347,8 +349,9 @@ document.addEventListener('DOMContentLoaded', function () {
       footerText: 'Nettoyage mobile & detailing au Luxembourg',
       modalEyebrow: 'Demande envoyée',
       modalThanks: 'Merci,',
-      modalSent: 'Votre demande a été reçue et les détails ont été envoyés à GoClean Lux par e-mail.',
+      modalSent: 'Votre demande a été reçue et GoClean Lux a été notifié avec les détails de la réservation.',
       modalSaved: 'Votre demande a été reçue. GoClean Lux a le récapitulatif et confirmera manuellement.',
+      sendWhatsAppRecap: 'Envoyer le récapitulatif sur WhatsApp',
       done: 'Terminé',
       slotEmpty: 'Aucun créneau disponible pour cette date. Veuillez choisir un autre jour.',
       chooseSlotError: 'Veuillez choisir un créneau avant d’envoyer.',
@@ -743,9 +746,9 @@ document.addEventListener('DOMContentLoaded', function () {
     bookingModal.setAttribute('aria-hidden', 'true');
   }
 
-  function showBookingModal(booking, mailSent) {
+  function showBookingModal(booking, notificationSent) {
     modalName.textContent = booking.name;
-    modalCopy.textContent = mailSent ? t('modalSent') : t('modalSaved');
+    modalCopy.textContent = notificationSent ? t('modalSent') : t('modalSaved');
     modalSummary.innerHTML = `
       <div><span>${t('summaryService')}</span><strong>${formatServiceLabel(booking.service)}</strong></div>
       <div><span>${t('summaryPackage')}</span><strong>${booking.serviceType ? formatPackageLabel(booking.serviceType) : t('notApplicable')}</strong></div>
@@ -754,6 +757,20 @@ document.addEventListener('DOMContentLoaded', function () {
       <div><span>${t('summaryTime')}</span><strong>${booking.time}</strong></div>
       <div><span>${t('summaryEstimate')}</span><strong>${booking.estimate}</strong></div>
     `;
+    const whatsappRecap = [
+      'New GoClean Lux booking',
+      `Package: ${formatPackageLabel(booking.serviceType)}`,
+      `Vehicle: ${booking.carSize}`,
+      `Date: ${booking.date}`,
+      `Time: ${booking.time}`,
+      `Estimate: ${booking.estimate}`,
+      `Customer: ${booking.name}`,
+      `Phone: ${booking.phone}`,
+      `Email: ${booking.email}`,
+      `Address: ${booking.address}`,
+      booking.notes ? `Notes: ${booking.notes}` : '',
+    ].filter(Boolean).join('\n');
+    modalWhatsApp.href = `https://wa.me/352661920598?text=${encodeURIComponent(whatsappRecap)}`;
     bookingModal.classList.add('open');
     bookingModal.setAttribute('aria-hidden', 'false');
     modalDone.focus();
@@ -825,9 +842,9 @@ document.addEventListener('DOMContentLoaded', function () {
         throw new Error(`${result.message || 'Could not send booking request.'}${details}`);
       }
 
-      bookingMessage.textContent = result.mailSent ? t('bookingSuccessEmail') : t('bookingSuccessSaved');
+      bookingMessage.textContent = result.notificationSent ? t('bookingSuccessEmail') : t('bookingSuccessSaved');
       bookingMessage.className = 'booking-message success';
-      showBookingModal(result.booking || booking, result.mailSent);
+      showBookingModal(result.booking || booking, result.notificationSent);
       bookingForm.reset();
       setTodayMinimum();
       selectedSlot = null;
