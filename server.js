@@ -108,7 +108,6 @@ function saveBookings(bookings) {
     console.error('Could not save bookings file:', error);
   }
 }
-
 function listResultPairs() {
   if (!fs.existsSync(resultsDirectory)) {
     return [];
@@ -116,6 +115,7 @@ function listResultPairs() {
 
   const files = new Set(fs.readdirSync(resultsDirectory));
   const pairs = [];
+  const imageExtensions = ['png', 'jpg', 'jpeg', 'tif', 'tiff'];
 
   files.forEach((filename) => {
     const match = filename.match(/^before(\d*)\.(png|jpg|jpeg|tif|tiff)$/i);
@@ -124,8 +124,12 @@ function listResultPairs() {
     }
 
     const suffix = match[1];
-    const afterFilename = `after${suffix}.png` || `after${suffix}.jpg` || `after${suffix}.jpeg` || `after${suffix}.tif` || `after${suffix}.tiff`;
-    if (files.has(afterFilename)) {
+
+    const afterFilename = imageExtensions
+      .map((ext) => `after${suffix}.${ext}`)
+      .find((candidate) => files.has(candidate));
+
+    if (afterFilename) {
       pairs.push({
         order: suffix === '' ? 0 : Number(suffix),
         before: `/img/work/${filename}`,
