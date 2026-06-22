@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function () {
       navReviews: 'Avis',
       navBook: 'Réserver',
       heroEyebrow: 'Detailing automobile mobile professionnel',
-      heroTitle: 'Le detailing à votre domicile.',
+      heroTitle: 'Le nottoyage professionel de voiture à votre domicile.',
       heroText: 'Vous vous détendez. Nous prenons soin de votre voiture à domicile, au bureau ou là où elle est stationnée.',
       heroQuote: 'Réserver votre detailing',
       heroServices: 'Voir les services',
