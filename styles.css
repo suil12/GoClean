@@ -270,7 +270,7 @@ a {
   max-height: 430px;
   border-radius: var(--radius);
   object-fit: cover;
-  object-position: 52% 50%;
+  object-position: 52% 58%;
   box-shadow: none;
 }
 
@@ -293,12 +293,18 @@ a {
   pointer-events: none;
 }
 
-.hero-proof-photo {
+.hero-proof-stack {
   position: absolute;
   right: 16px;
   bottom: 16px;
   z-index: 2;
-  width: min(38%, 172px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  width: min(58%, 310px);
+}
+
+.hero-proof-photo {
   overflow: hidden;
   border: 3px solid rgba(255, 255, 255, 0.94);
   border-radius: calc(var(--radius) - 2px);
@@ -309,9 +315,13 @@ a {
 .hero-proof-photo img {
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 0.82;
+  aspect-ratio: 1 / 0.9;
   object-fit: cover;
   object-position: 48% 50%;
+}
+
+.hero-proof-photo.premium img {
+  object-position: 50% 54%;
 }
 
 .hero-proof-photo span {
@@ -1520,6 +1530,23 @@ textarea {
 
   .best-seller-panel {
     padding: 16px;
+  }
+
+  .hero-image {
+    min-height: 360px;
+    object-position: 55% 58%;
+  }
+
+  .hero-proof-stack {
+    right: 10px;
+    bottom: 10px;
+    gap: 8px;
+    width: min(72%, 300px);
+  }
+
+  .hero-proof-photo span {
+    padding: 7px;
+    font-size: 0.68rem;
   }
 
   .best-seller-footer {

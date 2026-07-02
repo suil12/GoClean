@@ -12,3 +12,7 @@
   to = "/.netlify/functions/slots"
   status = 200
 
+[[redirects]]
+  from = "/api/results"
+  to = "/.netlify/functions/results"
+  status = 200
