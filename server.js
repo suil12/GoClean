@@ -637,6 +637,11 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  if (req.method === 'GET' && requestUrl.pathname === '/healthz') {
+    sendJson(res, 200, { ok: true, service: 'goclean-lux' });
+    return;
+  }
+
   if (req.method === 'POST' && requestUrl.pathname === '/api/bookings') {
     handleBooking(req, res);
     return;

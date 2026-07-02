@@ -58,19 +58,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const translations = {
     en: {
-      brandSubtext: 'Mobile Cleaning & Detailing',
-      pageTitle: 'GoClean Lux | Mobile Cleaning & Detailing',
+      brandSubtext: 'Mobile Car Cleaning & Detailing',
+      pageTitle: 'GoClean Lux | Mobile Car Cleaning & Detailing',
       navServices: 'Services',
       navHow: 'How it Works',
       navReviews: 'Reviews',
       navBook: 'Book Now',
-      heroEyebrow: 'Professional mobile car detailing',
-      heroTitle: 'Detailing at your home.',
+      heroEyebrow: 'Professional mobile car cleaning & detailing',
+      heroTitle: 'Car cleaning & detailing at your home.',
       heroText: 'You relax. We take care of your car wherever it is parked, at home or at the office.',
-      heroQuote: 'Book your detailing',
+      heroQuote: 'Book your car cleaning',
       heroServices: 'View services',
       heroWhatsApp: 'WhatsApp information',
       heroInstagram: 'Watch our videos',
+      heroProof: 'Real mobile car cleaning',
       heroClients: 'satisfied clients',
       heroFast: 'fast booking',
       heroEco: 'premium products',
@@ -223,24 +224,25 @@ document.addEventListener('DOMContentLoaded', function () {
       slotEmpty: 'No slots available for this date. Please choose another day.',
       chooseSlotError: 'Please choose a time slot before submitting.',
       sending: 'Sending request...',
-      bookingSuccessEmail: 'Booking request sent. We will confirm your appointment shortly.',
+      bookingSuccessEmail: 'Booking request sent to GoClean Lux on Telegram. We will confirm your appointment shortly.',
       bookingSuccessSaved: 'Booking request received. We will confirm your appointment manually.',
       bookingSendFallback: 'Please send your booking on WhatsApp: +352 661 920 598.',
     },
     fr: {
-      brandSubtext: 'Nettoyage mobile & detailing',
-      pageTitle: 'GoClean Lux | Nettoyage mobile & detailing',
+      brandSubtext: 'Nettoyage automobile mobile & detailing',
+      pageTitle: 'GoClean Lux | Nettoyage automobile mobile & detailing',
       navServices: 'Services',
       navHow: 'Fonctionnement',
       navReviews: 'Avis',
       navBook: 'Réserver',
-      heroEyebrow: 'Detailing automobile mobile professionnel',
-      heroTitle: 'Le nottoyage professionel de voiture à votre domicile.',
+      heroEyebrow: 'Nettoyage automobile mobile & detailing professionnel',
+      heroTitle: 'Nettoyage voiture & detailing à domicile.',
       heroText: 'Vous vous détendez. Nous prenons soin de votre voiture à domicile, au bureau ou là où elle est stationnée.',
-      heroQuote: 'Réserver votre detailing',
+      heroQuote: 'Réserver votre nettoyage',
       heroServices: 'Voir les services',
       heroWhatsApp: 'Informations sur WhatsApp',
       heroInstagram: 'Voir nos vidéos',
+      heroProof: 'Vrai nettoyage auto mobile',
       heroClients: 'clients satisfaits',
       heroFast: 'réservation rapide',
       heroEco: 'produits premium',
@@ -393,7 +395,7 @@ document.addEventListener('DOMContentLoaded', function () {
       slotEmpty: 'Aucun créneau disponible pour cette date. Veuillez choisir un autre jour.',
       chooseSlotError: 'Veuillez choisir un créneau avant d’envoyer.',
       sending: 'Envoi de la demande...',
-      bookingSuccessEmail: 'Demande de réservation envoyée. Nous confirmerons votre rendez-vous rapidement.',
+      bookingSuccessEmail: 'Demande envoyée à GoClean Lux sur Telegram. Nous confirmerons votre rendez-vous rapidement.',
       bookingSuccessSaved: 'Demande de réservation reçue. Nous confirmerons votre rendez-vous manuellement.',
       bookingSendFallback: 'Veuillez envoyer votre réservation sur WhatsApp : +352 661 920 598.',
     },
@@ -972,10 +974,13 @@ document.addEventListener('DOMContentLoaded', function () {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(booking),
       });
-      const result = await response.json();
+      const contentType = response.headers.get('content-type') || '';
+      const result = contentType.includes('application/json')
+        ? await response.json()
+        : { message: 'Booking API is not active on this deployment yet.' };
 
       if (!response.ok) {
-        const details = result.emailError ? ` ${result.emailError}` : '';
+        const details = result.emailError || result.error ? ` ${result.emailError || result.error}` : '';
         throw new Error(`${result.message || 'Could not send booking request.'}${details}`);
       }
 
