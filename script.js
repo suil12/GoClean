@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let currentLanguage = 'en';
   let currentBookingStep = 1;
   const totalBookingSteps = 4;
+  let slotAvailabilityMessage = '';
 
   const translations = {
     en: {
@@ -185,6 +186,7 @@ document.addEventListener('DOMContentLoaded', function () {
       stepDateText: 'Select your preferred day and one available 3-hour arrival window.',
       preferredDate: 'Preferred date',
       availableSlots: 'Available 3-hour slots',
+      unavailableWeekMessage: 'We are not available this week. Please try the following week, starting from July 28.',
       stepDetailsTitle: 'Where should we come?',
       stepDetailsText: 'Add your contact details and the address where we should arrive.',
       fullName: 'Full name',
@@ -223,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
       modalSaved: 'Your request has been received. GoClean Lux has your booking recap and will confirm manually.',
       sendWhatsAppRecap: 'Send recap on WhatsApp',
       done: 'Done',
-      slotEmpty: 'No slots available for this date. Please choose another day.',
+      slotEmpty: 'No slots available for this date. Please choose another day. Week from 20 - 27 July is fully booked.',
       chooseSlotError: 'Please choose a time slot before submitting.',
       sending: 'Sending request...',
       bookingSuccessEmail: 'Booking request sent to GoClean Lux on Telegram. We will confirm your appointment shortly.',
@@ -358,6 +360,7 @@ document.addEventListener('DOMContentLoaded', function () {
       stepDateText: 'Sélectionnez votre jour préféré et un créneau disponible de 3 heures.',
       preferredDate: 'Date souhaitée',
       availableSlots: 'Créneaux disponibles de 3 heures',
+      unavailableWeekMessage: 'Nous ne sommes pas disponibles cette semaine. Veuillez essayer la semaine suivante, à partir du 28 juillet.',
       stepDetailsTitle: 'Où devons-nous venir ?',
       stepDetailsText: 'Ajoutez vos coordonnées et l’adresse où nous devons arriver.',
       fullName: 'Nom complet',
@@ -396,7 +399,7 @@ document.addEventListener('DOMContentLoaded', function () {
       modalSaved: 'Votre demande a été reçue. GoClean Lux a le récapitulatif et confirmera manuellement.',
       sendWhatsAppRecap: 'Envoyer le récapitulatif sur WhatsApp',
       done: 'Terminé',
-      slotEmpty: 'Aucun créneau disponible pour cette date. Veuillez choisir un autre jour.',
+      slotEmpty: 'Aucun créneau disponible pour cette date. Veuillez choisir un autre jour. Semaine du 20 au 27 juillet est complètement réservée.',
       chooseSlotError: 'Veuillez choisir un créneau avant d’envoyer.',
       sending: 'Envoi de la demande...',
       bookingSuccessEmail: 'Demande envoyée à GoClean Lux sur Telegram. Nous confirmerons votre rendez-vous rapidement.',
@@ -705,6 +708,7 @@ document.addEventListener('DOMContentLoaded', function () {
   async function loadAvailableSlots(date) {
     if (!date) {
       availableSlots = [...timeSlots];
+      slotAvailabilityMessage = '';
       renderSlots();
       return;
     }
@@ -714,11 +718,14 @@ document.addEventListener('DOMContentLoaded', function () {
       const data = await response.json();
       if (response.ok && Array.isArray(data.slots)) {
         availableSlots = data.slots;
+        slotAvailabilityMessage = data.message || '';
       } else {
         availableSlots = [...timeSlots];
+        slotAvailabilityMessage = '';
       }
     } catch (error) {
       availableSlots = [...timeSlots];
+      slotAvailabilityMessage = '';
     }
 
     if (!availableSlots.includes(selectedSlot)) {
@@ -731,8 +738,15 @@ document.addEventListener('DOMContentLoaded', function () {
   function renderSlots() {
     slotContainer.innerHTML = '';
     if (availableSlots.length === 0) {
-      slotContainer.innerHTML = `<p class="slot-empty">${t('slotEmpty')}</p>`;
+      slotContainer.innerHTML = `<p class="slot-empty">${slotAvailabilityMessage || t('slotEmpty')}</p>`;
       return;
+    }
+
+    if (slotAvailabilityMessage) {
+      const message = document.createElement('p');
+      message.className = 'slot-empty slot-note';
+      message.textContent = slotAvailabilityMessage;
+      slotContainer.appendChild(message);
     }
 
     availableSlots.forEach((slot) => {

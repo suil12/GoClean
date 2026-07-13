@@ -45,9 +45,13 @@ const timeSlots = Array.from({ length: 8 }, (_, index) => {
   return `${String(hour).padStart(2, '0')}:00 - ${String(hour + 3).padStart(2, '0')}:00`;
 });
 const {
-  availableSlotsForDate,
+  getAvailableSlotsForDate,
+  getAvailabilityMessage,
   isSlotAvailable,
+  loadAvailability,
 } = require('./netlify/functions/availability');
+const { loadReservations } = require('./netlify/functions/reservations');
+const adminFunction = require('./netlify/functions/admin');
 
 const mimeTypes = {
   '.css': 'text/css; charset=utf-8',
@@ -578,8 +582,9 @@ async function handleBooking(req, res) {
     }
 
     const bookings = loadBookings();
+    const availability = await loadAvailability();
     const bookedSlots = bookings.filter((existing) => existing.date === booking.date).map((existing) => existing.time);
-    if (!isSlotAvailable(booking.date, booking.time, bookedSlots)) {
+    if (!isSlotAvailable(booking.date, booking.time, availability, bookedSlots)) {
       sendJson(res, 409, { message: 'That time slot is fully booked. Please choose another date or time.' });
       return;
     }
@@ -637,8 +642,45 @@ const server = http.createServer((req, res) => {
       return;
     }
 
-    const bookedSlots = loadBookings().filter((booking) => booking.date === date).map((booking) => booking.time);
-    sendJson(res, 200, { slots: availableSlotsForDate(date, bookedSlots) });
+    Promise.all([loadAvailability(), loadReservations()])
+      .then(([availability, reservations]) => {
+        const bookedSlots = [
+          ...loadBookings().filter((booking) => booking.date === date).map((booking) => booking.time),
+          ...reservations.filter((booking) => booking.date === date).map((booking) => booking.time),
+        ];
+        const slots = getAvailableSlotsForDate(date, availability, bookedSlots);
+        sendJson(res, 200, {
+          slots,
+          message: getAvailabilityMessage(date, availability, slots),
+        });
+      })
+      .catch((error) => {
+        console.error('Could not load slots:', error);
+        sendJson(res, 500, { message: 'Could not load available slots.' });
+      });
+    return;
+  }
+
+  if ((req.method === 'GET' || req.method === 'POST') && requestUrl.pathname === '/api/admin') {
+    const runAdmin = (body = '') => adminFunction.handler({
+      httpMethod: req.method,
+      headers: req.headers,
+      body,
+    });
+
+    const adminResponse = req.method === 'POST'
+      ? readJsonBody(req).then((body) => runAdmin(JSON.stringify(body)))
+      : runAdmin();
+
+    adminResponse
+      .then((response) => {
+        res.writeHead(response.statusCode || 200, response.headers || {});
+        res.end(response.body || '');
+      })
+      .catch((error) => {
+        console.error('Local admin route failed:', error);
+        sendJson(res, 500, { message: 'Admin request failed.' });
+      });
     return;
   }
 

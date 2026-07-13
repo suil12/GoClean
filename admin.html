@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GoClean Lux Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css?v=20260713-admin-availability" />
+</head>
+<body>
+  <main class="admin-shell">
+    <header class="admin-header">
+      <div>
+        <p>GoClean Lux</p>
+        <h1>Booking Admin</h1>
+      </div>
+      <a href="/" class="ghost-link">Open website</a>
+    </header>
+
+    <section class="admin-login" id="loginPanel">
+      <h2>Admin access</h2>
+      <p>Enter your admin password to manage booking availability and reservations.</p>
+      <form id="loginForm">
+        <label for="adminPassword">Password</label>
+        <input id="adminPassword" type="password" autocomplete="current-password" required />
+        <button type="submit">Open admin</button>
+      </form>
+      <p class="admin-message" id="loginMessage"></p>
+    </section>
+
+    <section class="admin-dashboard" id="adminDashboard" hidden>
+      <div class="toolbar">
+        <div>
+          <p class="eyebrow">Availability</p>
+          <h2>Manage booking slots</h2>
+        </div>
+        <button type="button" id="refreshAdmin">Refresh</button>
+      </div>
+
+      <div class="admin-grid">
+        <section class="panel">
+          <h3>Close a full day</h3>
+          <p>Use this when you are fully booked or unavailable for a whole day.</p>
+          <form id="fullDayForm" class="stack-form">
+            <label for="fullDayDate">Date</label>
+            <input id="fullDayDate" type="date" required />
+            <label for="fullDayMessage">Message shown to customer</label>
+            <input id="fullDayMessage" type="text" placeholder="This day is fully booked. Please choose another date." />
+            <button type="submit">Add closed day</button>
+          </form>
+          <div class="chip-list" id="fullDaysList"></div>
+        </section>
+
+        <section class="panel">
+          <h3>Block time slots</h3>
+          <p>Use this for half days, mornings, or individual arrival windows.</p>
+          <form id="slotBlockForm" class="stack-form">
+            <label for="slotDate">Date</label>
+            <input id="slotDate" type="date" required />
+            <div class="slot-checkboxes" id="slotCheckboxes"></div>
+            <label for="slotMessage">Message shown to customer</label>
+            <input id="slotMessage" type="text" placeholder="Morning is fully booked. Please choose an afternoon slot." />
+            <button type="submit">Save blocked slots</button>
+          </form>
+          <div class="blocked-list" id="blockedSlotsList"></div>
+        </section>
+      </div>
+
+      <section class="panel reservations-panel">
+        <div class="toolbar compact">
+          <div>
+            <p class="eyebrow">Reservations</p>
+            <h2>Customer requests</h2>
+          </div>
+          <p id="saveMessage" class="admin-message"></p>
+        </div>
+        <div class="reservation-list" id="reservationList"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="admin.js?v=20260713-admin-availability"></script>
+</body>
+</html>

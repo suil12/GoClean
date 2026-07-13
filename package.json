@@ -14,5 +14,8 @@
   "license": "MIT",
   "devDependencies": {
     "nodemon": "^3.0.1"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^10.1.0"
   }
 }

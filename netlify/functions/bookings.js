@@ -10,7 +10,8 @@ const REQUIRED_FIELDS = [
   'address',
 ];
 
-const { isSlotAvailable } = require('./availability');
+const { isSlotAvailable, loadAvailability } = require('./availability');
+const { addReservation, loadReservations } = require('./reservations');
 
 function json(statusCode, payload) {
   return {
@@ -136,12 +137,17 @@ exports.handler = async (event) => {
       return json(400, { message: 'Please complete all required booking fields.' });
     }
 
-    if (!isSlotAvailable(booking.date, booking.time)) {
+    const availability = await loadAvailability();
+    const reservations = await loadReservations();
+    const bookedSlots = reservations.filter((reservation) => reservation.date === booking.date).map((reservation) => reservation.time);
+
+    if (!isSlotAvailable(booking.date, booking.time, availability, bookedSlots)) {
       return json(409, { message: 'That time slot is fully booked. Please choose another date or time.' });
     }
 
     await sendTelegram(booking);
-    console.log('New GoClean Lux booking request:', booking);
+    const reservation = await addReservation(booking);
+    console.log('New GoClean Lux booking request:', reservation);
 
     return json(200, {
       message: 'Booking request received and Telegram notification sent.',
@@ -150,7 +156,7 @@ exports.handler = async (event) => {
       notifications: {
         telegram: { configured: true, sent: true },
       },
-      booking: bookingResponseSummary(booking),
+      booking: bookingResponseSummary(reservation),
     });
   } catch (error) {
     console.error('Booking request failed:', error);
