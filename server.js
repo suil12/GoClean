@@ -44,6 +44,10 @@ const timeSlots = Array.from({ length: 8 }, (_, index) => {
   const hour = 9 + index;
   return `${String(hour).padStart(2, '0')}:00 - ${String(hour + 3).padStart(2, '0')}:00`;
 });
+const {
+  availableSlotsForDate,
+  isSlotAvailable,
+} = require('./netlify/functions/availability');
 
 const mimeTypes = {
   '.css': 'text/css; charset=utf-8',
@@ -574,6 +578,12 @@ async function handleBooking(req, res) {
     }
 
     const bookings = loadBookings();
+    const bookedSlots = bookings.filter((existing) => existing.date === booking.date).map((existing) => existing.time);
+    if (!isSlotAvailable(booking.date, booking.time, bookedSlots)) {
+      sendJson(res, 409, { message: 'That time slot is fully booked. Please choose another date or time.' });
+      return;
+    }
+
     if (bookings.some((existing) => existing.date === booking.date && existing.time === booking.time)) {
       sendJson(res, 409, { message: 'That time slot is already booked. Please choose a different slot.' });
       return;
@@ -628,7 +638,7 @@ const server = http.createServer((req, res) => {
     }
 
     const bookedSlots = loadBookings().filter((booking) => booking.date === date).map((booking) => booking.time);
-    sendJson(res, 200, { slots: timeSlots.filter((slot) => !bookedSlots.includes(slot)) });
+    sendJson(res, 200, { slots: availableSlotsForDate(date, bookedSlots) });
     return;
   }
 

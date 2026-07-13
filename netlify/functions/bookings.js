@@ -10,6 +10,8 @@ const REQUIRED_FIELDS = [
   'address',
 ];
 
+const { isSlotAvailable } = require('./availability');
+
 function json(statusCode, payload) {
   return {
     statusCode,
@@ -134,6 +136,10 @@ exports.handler = async (event) => {
       return json(400, { message: 'Please complete all required booking fields.' });
     }
 
+    if (!isSlotAvailable(booking.date, booking.time)) {
+      return json(409, { message: 'That time slot is fully booked. Please choose another date or time.' });
+    }
+
     await sendTelegram(booking);
     console.log('New GoClean Lux booking request:', booking);
 
@@ -154,4 +160,3 @@ exports.handler = async (event) => {
     });
   }
 };
-
