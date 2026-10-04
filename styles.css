@@ -1,20 +1,21 @@
 :root {
   color-scheme: light;
-  --ink: #102235;
-  --ink-soft: #4f6171;
-  --muted: #7a8a98;
-  --line: rgba(16, 34, 53, 0.1);
+  --ink: #15263b;
+  --ink-soft: #53657a;
+  --muted: #75859d;
+  --line: rgba(21, 38, 59, 0.08);
   --paper: #ffffff;
-  --mist: #eef8f8;
-  --aqua: #21b7aa;
-  --aqua-dark: #087d78;
-  --blue: #215d9c;
-  --lime: #b7e364;
-  --sun: #ffd36a;
+  --mist: #f4f8fb;
+  --aqua: #1ba7a2;
+  --aqua-dark: #0b7b73;
+  --blue: #1f5d8d;
+  --sky: #eaf6f7;
+  --lime: #cfe88f;
+  --sun: #f7d57d;
   --danger: #d94d4d;
-  --shadow: 0 24px 70px rgba(16, 34, 53, 0.12);
-  --shadow-soft: 0 16px 44px rgba(16, 34, 53, 0.08);
-  --radius: 8px;
+  --shadow: 0 24px 60px rgba(16, 34, 53, 0.08);
+  --shadow-soft: 0 14px 34px rgba(16, 34, 53, 0.06);
+  --radius: 18px;
 }
 
 * {
@@ -31,9 +32,9 @@ body {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: var(--ink);
   background:
-    linear-gradient(115deg, rgba(33, 183, 170, 0.14), transparent 38%),
-    linear-gradient(245deg, rgba(255, 211, 106, 0.2), transparent 30%),
-    #f6fbfb;
+    radial-gradient(circle at top left, rgba(27, 167, 162, 0.08), transparent 26%),
+    radial-gradient(circle at bottom right, rgba(31, 93, 141, 0.06), transparent 22%),
+    linear-gradient(180deg, #f7fafc 0%, #f2f8f8 35%, #f7fbfc 100%);
   overflow-x: hidden;
 }
 
@@ -42,12 +43,7 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.28;
-  background-image:
-    linear-gradient(rgba(16, 34, 53, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 34, 53, 0.05) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: linear-gradient(to bottom, #000, transparent 78%);
+  opacity: 0;
 }
 
 a {
@@ -83,16 +79,16 @@ a {
   justify-content: space-between;
   gap: 24px;
   margin-top: 14px;
-  padding: 12px 14px 12px 18px;
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.74);
-  box-shadow: var(--shadow-soft);
+  padding: 12px 16px 12px 18px;
+  border: 1px solid rgba(21, 38, 59, 0.06);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 12px 30px rgba(21, 38, 59, 0.05);
   backdrop-filter: blur(18px);
 }
 
 .topbar.scrolled {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
 }
 
 .brand-wrap,
@@ -216,14 +212,14 @@ a {
 .button-primary {
   border: 0;
   color: #ffffff;
-  background: linear-gradient(135deg, var(--aqua), var(--aqua-dark));
-  box-shadow: 0 18px 32px rgba(8, 125, 120, 0.24);
+  background: linear-gradient(135deg, var(--aqua), var(--blue));
+  box-shadow: 0 16px 30px rgba(27, 167, 162, 0.2);
   cursor: pointer;
 }
 
 .button-secondary,
 .button-outline {
-  border: 1px solid rgba(8, 125, 120, 0.2);
+  border: 1px solid rgba(11, 123, 115, 0.12);
   color: var(--aqua-dark);
   background: rgba(255, 255, 255, 0.84);
 }
@@ -247,7 +243,7 @@ a {
   grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
   align-items: center;
   gap: 54px;
-  padding: 68px 0 56px;
+  padding: 64px 0 52px;
 }
 
 .hero-copy h1 {
@@ -664,6 +660,10 @@ a {
 .testimonial-card {
   position: relative;
   padding: 24px;
+  border: 1px solid rgba(21, 38, 59, 0.06);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 18px 38px rgba(16, 34, 53, 0.04);
 }
 
 .service-card {
@@ -671,15 +671,15 @@ a {
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .service-card:hover,
 .service-card.active,
 .service-card:focus-visible {
   transform: translateY(-6px);
-  border-color: rgba(33, 183, 170, 0.42);
-  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(27, 167, 162, 0.4);
+  box-shadow: 0 20px 42px rgba(16, 34, 53, 0.08);
   outline: none;
 }
 
@@ -853,6 +853,10 @@ a {
 .booking-form,
 .booking-summary {
   padding: 28px;
+  border: 1px solid rgba(21, 38, 59, 0.06);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 20px 48px rgba(16, 34, 53, 0.04);
 }
 
 .booking-form form,
