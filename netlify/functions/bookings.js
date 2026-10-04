@@ -83,7 +83,7 @@ async function sendTelegram(booking) {
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
   if (!token || !chatId) {
-    throw new Error('Telegram is not configured. Add TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in Netlify.');
+    return { configured: false, sent: false };
   }
 
   const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -100,6 +100,8 @@ async function sendTelegram(booking) {
   if (!response.ok || result.ok === false) {
     throw new Error(result.description || `Telegram returned HTTP ${response.status}`);
   }
+
+  return { configured: true, sent: true };
 }
 
 exports.handler = async (event) => {
@@ -145,16 +147,35 @@ exports.handler = async (event) => {
       return json(409, { message: 'That time slot is fully booked. Please choose another date or time.' });
     }
 
-    await sendTelegram(booking);
+    const telegramConfigured = Boolean(process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID);
+    let telegramNotification = { configured: telegramConfigured, sent: false };
+
+    try {
+      telegramNotification = await sendTelegram(booking);
+    } catch (error) {
+      console.error('Telegram notification failed; the reservation was still saved.', error);
+      telegramNotification = {
+        configured: telegramConfigured,
+        sent: false,
+        error: String(error?.message || error),
+      };
+    }
+
     const reservation = await addReservation(booking);
     console.log('New GoClean Lux booking request:', reservation);
 
+    const message = telegramNotification.sent
+      ? 'Booking request received and Telegram notification sent.'
+      : telegramNotification.configured
+        ? 'Booking request received and saved. Telegram notification failed, but the reservation is stored.'
+        : 'Booking request received and saved. Add TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID to enable Telegram notifications.';
+
     return json(200, {
-      message: 'Booking request received and Telegram notification sent.',
+      message,
       mailSent: false,
-      notificationSent: true,
+      notificationSent: telegramNotification.sent,
       notifications: {
-        telegram: { configured: true, sent: true },
+        telegram: telegramNotification,
       },
       booking: bookingResponseSummary(reservation),
     });

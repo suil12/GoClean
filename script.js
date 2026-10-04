@@ -993,9 +993,16 @@ document.addEventListener('DOMContentLoaded', function () {
         body: JSON.stringify(booking),
       });
       const contentType = response.headers.get('content-type') || '';
-      const result = contentType.includes('application/json')
-        ? await response.json()
-        : { message: 'Booking API is not active on this deployment yet.' };
+      let result;
+
+      if (contentType.includes('application/json')) {
+        result = await response.json();
+      } else {
+        const text = await response.text().catch(() => '');
+        result = {
+          message: text || `Booking request failed with HTTP ${response.status}. The booking API is not active on this deployment yet.`,
+        };
+      }
 
       if (!response.ok) {
         const details = result.emailError || result.error ? ` ${result.emailError || result.error}` : '';

@@ -1,0 +1,19 @@
+[
+  {
+    "id": "1791121026487-2afd3df11971",
+    "status": "new",
+    "service": "Car Cleaning",
+    "serviceType": "Complete Clean",
+    "carSize": "cityCar",
+    "date": "2026-10-15",
+    "time": "09:00 - 12:00",
+    "estimate": "€120",
+    "language": "en",
+    "name": "Test User",
+    "phone": "123456",
+    "email": "test@example.com",
+    "address": "12 Test Street",
+    "notes": "Regression check",
+    "submittedAt": "2026-10-04T13:37:06.472Z"
+  }
+]
