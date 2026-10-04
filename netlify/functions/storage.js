@@ -1,8 +1,21 @@
 const fs = require('fs');
 const path = require('path');
-const { getStore } = require('@netlify/blobs');
 
 const localDataDirectory = path.join(__dirname, '..', '..', '.netlify-local-data');
+
+async function getBlobStore() {
+  if (!canUseBlobs()) {
+    return null;
+  }
+
+  try {
+    const module = await import('@netlify/blobs');
+    return module.getStore('goclean-lux');
+  } catch (error) {
+    console.error('Could not initialize Netlify Blobs store:', error);
+    return null;
+  }
+}
 
 function canUseBlobs() {
   return Boolean(process.env.NETLIFY || process.env.NETLIFY_BLOBS_CONTEXT || process.env.NETLIFY_BLOBS_TOKEN);
@@ -13,9 +26,9 @@ function localPath(key) {
 }
 
 async function readJson(key, fallback) {
-  if (canUseBlobs()) {
+  const store = await getBlobStore();
+  if (store) {
     try {
-      const store = getStore('goclean-lux');
       const value = await store.get(key, { type: 'json' });
       return value || fallback;
     } catch (error) {
@@ -36,9 +49,9 @@ async function readJson(key, fallback) {
 }
 
 async function writeJson(key, value) {
-  if (canUseBlobs()) {
+  const store = await getBlobStore();
+  if (store) {
     try {
-      const store = getStore('goclean-lux');
       await store.setJSON(key, value);
       return;
     } catch (error) {
